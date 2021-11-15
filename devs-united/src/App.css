@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Silksfont';
+  src: local('Silksfont'), url(./fonts/silkscreen/slkscr.ttf) format('ttf');
+}
+
 .App {
   text-align: center;
 }
