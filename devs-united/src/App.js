@@ -2,13 +2,12 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import { firestore } from "./firebase";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [tweets, setTweets] = useState([]);
   const [body, setBody] = useState({});
-  const [alarm, setAlarm] = useState("success");
-  const user = useRef();
+
 
   const getAllTweets = () => {
     firestore
@@ -40,7 +39,7 @@ function App() {
       .catch((error) => console.error("has occured an", error));
   };
 
-  const handleOnChange = () => {
+  const handleOnChange = (e) => {
     let newTweet = {
       ...body,
       [e.target.name]: e.target.value,
@@ -48,10 +47,9 @@ function App() {
     setBody(newTweet);
   };
 
-  const deleteTweet=()=> {
+  const deleteTweet=(id)=> {
 firestore.collection("tweets")
 .doc(id)
-.get()
 .delete()
 .then(getAllTweets())
 .catch((error) => console.error("has occured an", error));
@@ -71,8 +69,8 @@ firestore.collection("tweets")
       .then((snapshot) => {
         const tweets = snapshot.docs.map((doc) => {
           return {
-            message: doc.data().message,
-            user: doc.data().user,
+            message: doc.data().text,
+            user: doc.data().author,
             id: doc.id,
           };
         });

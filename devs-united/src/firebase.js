@@ -2,14 +2,13 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDSWJEwRozmd1Jbv9_fMb_9LplaZYYWto8",
-  authDomain: "dev-united-cyf-1.firebaseapp.com",
-  projectId: "dev-united-cyf-1",
-  storageBucket: "dev-united-cyf-1.appspot.com",
-  messagingSenderId: "150594986824",
-  appId: "1:150594986824:web:f904b5a30830b0d9de097d",
-  measurementId: "G-C9KM5901VK"
-};
+    apiKey: "AIzaSyDl315CZcdrgzu3omYA3S-im6ZAPmFAPI8",
+    authDomain: "acamica-start-project.firebaseapp.com",
+    projectId: "acamica-start-project",
+    storageBucket: "acamica-start-project.appspot.com",
+    messagingSenderId: "384844068372",
+    appId: "1:384844068372:web:a2cf37085649965930d901"
+  };
 
 firebase.initializeApp(firebaseConfig);
 
