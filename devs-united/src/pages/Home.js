@@ -11,13 +11,13 @@ const Home = () => {
 
   return (
    
-      <main className="font-face-silk">
+      <main >
         <div></div>
 
         <Link to="/">
           <BigLogo/>
         </Link>
-        <h1>lorem ipsum dolor</h1>
+        <h1 className="font-face-silk">lorem ipsum dolor</h1>
         <p>lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
         <GoogleLogin
           clientId="141550570435-721ct27r4e9u6ifl7heom8cm8dr4r4h9.apps.googleusercontent.com"

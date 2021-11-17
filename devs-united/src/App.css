@@ -1,11 +1,14 @@
-/* @font-face {
-  font-family: 'Silksfont';
-  src: local('Silksfont'), url(./fonts/silkscreen/slkscr.ttf) format('ttf');
-} */
+@font-face {
+  font-family: "Silkscreen";
+  src: local("Silkscreen"),
+   url("./fonts/silkscreen/slkscr.ttf") format("truetype");
+  font-weight: bold;
+  }
 
+/* 
 .font-face-silk {
   font-family: "Silkscreen";
- }
+ } */
 
 .App {
   text-align: center;
