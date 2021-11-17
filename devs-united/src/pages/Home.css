@@ -6,4 +6,9 @@ display: flex;
 flex-flow: column wrap;
 justify-content: space-evenly;
 align-items: center;
+color: white;
 }
+
+.font-face-silk {
+    font-family: "Silkscreen";
+   }
