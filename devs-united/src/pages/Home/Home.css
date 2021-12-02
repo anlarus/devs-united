@@ -33,9 +33,14 @@ span {
 
 .google-logo-cover  {
 width: 62px;
+display: flex;
+flex-flow: row nowrap;
+justify-content: center;
+align-items: center;
    
 }
-button {
+
+.google-button {
     display: block;
     background-color: #4688F1;
     border: none;

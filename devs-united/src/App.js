@@ -35,19 +35,20 @@ function App() {
   const createTweet = (e) => {
     e.preventDefault();
     const uploadTask = storage.ref().child(`tweets/${file.name}`).put(file);
-    uploadTask. on(`state changed`
-    , (snapshot) => { 
-      let progress = (snapshot.bytesTransferred/ snapshot.totalBytes *100); 
+    uploadTask
+    .on(`state changed`, 
+    (snapshot) => { 
+      let progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100; 
+      setProgress(progress)
       console.log(progress)
     },
     (err) => {
-      console.error(err.message)
-    }
-      ,()=> {
+      console.error("an error has occured here ",err.message)
+    },
+    ()=> {
         uploadTask.snapshot.ref.getDownloadURL().then()
-
-          firestore.collection("tweets").add({body}) 
-      .then(()=>   console.log(`se subio la imagen`))      
+        firestore.collection("tweets").add({body}) 
+      .then(()=>console.log(`se subio la imagen`))      
     })
     // firestore
     //   .collection("tweets")
@@ -119,14 +120,14 @@ function App() {
   }, []);
 
   const handleUpload = (e) => {
+    // e.preventDefault();
     setFile(e.target.files[0]);
     storage.ref()
-    .child(`tweets/ + ${e.target.files[0].name}`)
+    .child(`tweets/${e.target.files[0].name}`)
     .put(e.target.files[0])
     .then(()=> {
       console.log("success")
-    })
-    .catch((error) => console.error("has occured an", error.message));
+    });
   };
 
   // useEffect(() => {
@@ -172,9 +173,9 @@ function App() {
           );
         })}
         <form onSubmit={createTweet}>
-          <input name="user" onChange={handleOnChange} type="text">
-            {tweets.message || ""}
-          </input>
+          <input name="user" onChange={handleOnChange} type="text"/>
+            {/* {tweets.message || ""}
+          </input> */}
           <textarea name="message" onChange={handleOnChange}></textarea>
           <input type="file" onChange={handleUpload} />
           <progress max="100" value={progress}></progress>
