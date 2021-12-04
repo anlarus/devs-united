@@ -1,0 +1,69 @@
+main {
+    background-color: rgb(46,19,44);
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+    }
+    
+    .font-face-fira {
+        font-family: 'Fira Code', monospace;
+       }
+      
+    
+    .font-face-silk {
+        font-family: "Silkscreen", sans-serif;
+       }
+    
+    span {
+        color: rgb(245,13,90)
+    }
+    
+    .reg-button-cover {
+        display: flex;
+        flex-flow: row nowrap;
+        background-color: rgb(0,218,118);
+        width: 75%;
+        height: 58px;
+        margin: 0 auto;
+    }
+    
+.reg-input {
+    background-color: rgb(21,7,20);
+    color: rgb(46,19,44);
+}
+
+    .google-logo-cover  {
+    width: 62px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+       
+    }
+    
+    .google-button {
+        display: block;
+        background-color: #4688F1;
+        border: none;
+        color: white;
+        width: 85%;
+    }
+
+    .color-cover {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .color-box {
+        height: 42px;
+        width: 42px;
+    }
+    
+    
+    
