@@ -1,7 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
-import Register from "./pages/Register/Register"
+import Register from "./pages/Register/Register";
+import LoggedIn from "./pages/LoggedIn/LoggedIn";
 import { firestore, storage } from "./firebase";
 import { useState, useEffect } from "react";
 
@@ -37,14 +38,16 @@ function App() {
     e.preventDefault();
     const uploadTask = storage.ref().child(`tweets/${file.name}`).put(file);
     uploadTask
-    .on(`state changed`, 
+    .on(`the tweet state changed`, 
     (snapshot) => { 
+      console.log(snapshot);
       let progress = (snapshot.bytesTransferred/snapshot.totalBytes)*100; 
-      setProgress(progress)
+      setProgress(progress);
+      console.log('the image hase been uploaded')
       console.log(progress)
     },
     (err) => {
-      console.error("an error has occured here ",err.message)
+      console.error("an error has occured during we were creating tweet ",err.message)
     },
     ()=> {
         uploadTask.snapshot.ref.getDownloadURL().then()
@@ -181,13 +184,12 @@ function App() {
           <textarea name="message" onChange={handleOnChange}></textarea>
           <input type="file" onChange={handleUpload} />
           <progress max="100" value={progress}></progress>
-          <input type="submit" value="post" />
+          <input className="user-name-input" type="submit" value="post" />
         </form>
         <Routes>
           <Route path="/" element={<Home />} />
-        </Routes>
-        <Routes>
           <Route path="/register" element={<Register />} />
+          <Route path="/loggedIn" element={<LoggedIn />} />
         </Routes>
       </div>
     </Router>

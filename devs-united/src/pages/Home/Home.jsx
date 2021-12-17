@@ -12,13 +12,17 @@ const Home = () => {
   return (
     <main>
       <div  className="font-face-silk">
-        <div>
+        <div className="logo-cover">
           <Link to="/">
             <BigLogo />
           </Link>
         </div>
-        <h1>lorem ipsum dolor</h1>
-        <p className="font-face-fira">lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+        <h1>lorem
+        <br/>
+        ipsum dolor</h1>
+        <p className="font-face-fira">lorem ipsum dolor sit amet, 
+        <br/>
+        consectetur adipiscing elit</p>
         <GoogleLogin
           clientId="141550570435-721ct27r4e9u6ifl7heom8cm8dr4r4h9.apps.googleusercontent.com"
           render={renderProps => (
@@ -28,9 +32,10 @@ const Home = () => {
           onFailure={responseGoogle}
           cookiePolicy={"single_host_origin"}
         />
-        <p className="font-face-fira">
+        <p className="font-face-fira tradeMark">
           © 2021 Devs_United - <span>BETA</span>
         </p>
+        <div className="footer-underline"></div>
       </div>
     </main>
   );
