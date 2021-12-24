@@ -3,10 +3,13 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Register from "./pages/Register/Register";
 import LoggedIn from "./pages/LoggedIn/LoggedIn";
-import { firestore, storage } from "./firebase";
+import { firestore, storage, auth } from "./firebase";
 import { useState, useEffect } from "react";
+import swal from '@sweetalert/with-react';
+import { useProtectedContext } from "./context/Protected";
 
 function App() {
+
   const [tweets, setTweets] = useState([]);
   const [body, setBody] = useState({});
   const [file, setFile] = useState({});
@@ -27,6 +30,7 @@ function App() {
             message: doc.data().message,
             user: doc.data().user,
             likes: doc.data().likes || 0,
+            image: doc.data().image|| false,
             id: doc.id,
           };
         });
@@ -36,7 +40,9 @@ function App() {
 
   const createTweet = (e) => {
     e.preventDefault();
+    
     const uploadTask = storage.ref().child(`tweets/${file.name}`).put(file);
+    
     uploadTask
     .on(`the tweet state changed`, 
     (snapshot) => { 
@@ -50,15 +56,15 @@ function App() {
       console.error("an error has occured during we were creating tweet ",err.message)
     },
     ()=> {
-        uploadTask.snapshot.ref.getDownloadURL().then()
-        firestore.collection("tweets").add({body}) 
-      .then(()=>console.log(`se subio la imagen`))      
+
+      uploadTask.snapshot.ref.getDownloadURL().then((url)=> {
+          firestore.collection("tweets")
+          .add({...body, image: url}) 
+          .then(()=>console.log(`se subio la imagen`))
+          .catch((err)=>console.error(err.message));   
+        });
+        setProgress(0);
     })
-    // firestore
-    //   .collection("tweets")
-    //   .add(body)
-    //   .then(getAllTweets())
-    //   .catch((error) => console.error("has occured an", error));
   };
 
   const handleOnChange = (e) => {
@@ -84,7 +90,6 @@ function App() {
       .update({ likes: tweet.likes + 1 })
       .then(
         console.log("se actualizo")
-        // getAllTweets()
       )
       .catch((error) => console.error("has occured an ", error.message));
   };
@@ -109,7 +114,10 @@ function App() {
   let number = 20;
 
   useEffect(() => {
-    const unsuscribe = firestore.collection("tweets").onSnapshot((snapshot) => {
+    const unsuscribe = firestore
+    .collection("tweets")
+    .onSnapshot((snapshot) => {
+      console.log(snapshot.docChanges());
       const tweets = snapshot.docs.map((doc) => {
         return {
           message: doc.data().message,
@@ -134,32 +142,6 @@ function App() {
     });
   };
 
-  // useEffect(() => {
-  //   firestore
-  //     .collection("tweets")
-  //     .limit(1)
-  //     .where("likes", ">", number)
-  //     .orderBy("likes", "asc")
-  //     .startAt(30)
-  //     .endAt(50)
-  //     .get()
-  //     .then((snapshot) => {
-  //       const tweets = snapshot.docs.map((doc) => {
-  //         return {
-  //           message: doc.data().text,
-  //           user: doc.data().author,
-  //           id: doc.id,
-  //         };
-  //       });
-  //       console.log(tweets);
-  //       setTweets(tweets);
-  //     });
-  // }, []);
-
-  // useEffect(() => {
-  //   getAllTweets();
-  // }, []);
-
   return (
     <Router>
       <div className="App">
@@ -167,10 +149,13 @@ function App() {
           console.log(tweet)
           return (
             <div>
+              <div className="id">{tweet.id}</div>
               <div className="who">{tweet.user}</div>
               <div className="what">{tweet.message}</div>
               <div className="rate">{tweet.likes}</div>
-              <div className="id">{tweet.id}</div>
+              <div>
+                { tweet.image && <img src={tweet.image}/>}
+              </div>
               <button onClick={() => deleteTweet(tweet.id)}>erase</button>
               <button onClick={() => likeTweet(tweet)}>like</button>
               {/* <button onClick={() => updateTweet(tweet)}>edit</button> */}
@@ -178,17 +163,17 @@ function App() {
           );
         })}
         <form onSubmit={createTweet}>
-          <input name="user" onChange={handleOnChange} type="text"/>
-            {/* {tweets.message || ""}
-          </input> */}
+          <input name="user" onChange={handleOnChange} type="text" defaultValue={body.user}>
+          </input>
           <textarea name="message" onChange={handleOnChange}></textarea>
           <input type="file" onChange={handleUpload} />
-          <progress max="100" value={progress}></progress>
+          {progress > 0 && <progress max="100" value={progress}>{progress}%</progress>}
           <input className="user-name-input" type="submit" value="post" />
         </form>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/loggin" element={<Login />} />
           <Route path="/loggedIn" element={<LoggedIn />} />
         </Routes>
       </div>

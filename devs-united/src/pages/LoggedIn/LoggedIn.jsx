@@ -70,11 +70,11 @@ const LoggedIn = () => {
                   Necessitatibus consectetur quas voluptate possimus ad iusto
                   nisi, esse facilis.
                 </p>
-                <div className="message-footer">
-                  <div className="message-footer-middle">
+                <div className="post-footer">
+                  <div className="post-footer-middle">
                     <img src={on} alt="mini devsUnited image" />
                   </div>
-                  <div className="message-footer-middle">
+                  <div className="post-footer-middle">
                     <span>100</span>
                   </div>
                 </div>
