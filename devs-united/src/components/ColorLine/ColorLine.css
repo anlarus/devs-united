@@ -1,0 +1,40 @@
+.color-cover {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 37px auto;
+  width: 75%;
+}
+
+.color-box {
+  height: 42px;
+  width: 42px;
+}
+.color-box:hover {
+  border: solid white 3px;
+}
+
+.red {
+  background-color: rgb(245, 13, 90);
+}
+.orange {
+  background-color: rgb(255, 134, 92);
+}
+.yellow {
+  background-color: rgb(255, 234, 92);
+}
+.green {
+  background-color: rgb(0, 218, 118);
+}
+.blue {
+  background-color: rgb(0, 150, 206);
+}
+
+.violet {
+  background-color: rgb(128, 15, 255);
+}
+
+.font-face-silk {
+  font-family: "Silkscreen", sans-serif;
+}

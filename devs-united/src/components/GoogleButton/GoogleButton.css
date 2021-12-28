@@ -1,0 +1,25 @@
+.google-logo-cover {
+  width: 15%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-cover {
+  display: flex;
+  flex-flow: row nowrap;
+  background-color: white;
+  width: 75%;
+  height: 58px;
+  margin: 0 auto;
+  /* margin: 41px auto; */
+}
+
+.google-button {
+  display: block;
+  background-color: #4688f1;
+  border: none;
+  color: white;
+  width: 85%;
+}

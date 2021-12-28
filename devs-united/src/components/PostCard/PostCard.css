@@ -1,0 +1,66 @@
+.username-clickable {
+    border: none;
+    display: inline;
+    padding: 0 10px;
+    line-height: 32px;
+    background-color: rgb(128,15,255) ;
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.post-separator {
+    height: 5px;
+    width: 100%;
+    background-color: rgb(96, 38, 91);
+    margin: 9px auto;
+  }
+  
+  .post-cover {
+    background-color: rgb(46, 19, 44);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 5px 15px;
+    margin: 0;
+  }
+  
+  .post-box {
+    width: 90%;
+    margin: 0 0 0 20px;
+    background-color: inherit;
+    text-align: justify;
+    padding: 10px;
+  }
+  
+  .post-avatar {
+    width: 50px;
+    height: 50px;
+    background-color: rgb(145, 77, 139);
+    border-radius: 50%;
+    margin: 10px 5px;
+  }
+  
+  .post-avatar img {
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  .post-footer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .post-footer-middle {
+    width: 20px;
+  }
+  
+
+  .like,.dislike {
+    width: 20px;
+    margin: 0 10px;
+  }
+  

@@ -1,70 +1,64 @@
 main {
-background-color: rgb(46,19,44);
-width: 100%;
-height: 100vh;
-display: flex;
-flex-flow: column wrap;
-justify-content: space-between;
-align-items: center;
-color: white;
-}
-
-
-.logo-cover {
-    width: 65%;
+  background-color: rgb(46, 19, 44);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
 }
 
 h1 {
-    margin: 190px auto 41px;
+  margin: 190px auto 41px;
 }
 
 .font-face-fira {
-    font-family: 'Fira Code', monospace;
-   }
-  
+  font-family: "Fira Code", monospace;
+}
 
 .font-face-silk {
-    font-family: "Silkscreen", sans-serif;
-   }
+  font-family: "Silkscreen", sans-serif;
+}
 
 span {
-    color: rgb(245,13,90)
-}
-
-.button-cover {
-    display: flex;
-    flex-flow: row nowrap;
-    background-color: white;
-    width: 75%;
-    height: 58px;
-    /* margin: 41px auto; */
-}
-
-.google-logo-cover  {
-width: 62px;
-display: flex;
-flex-flow: row nowrap;
-justify-content: center;
-align-items: center;
-   
-}
-
-.google-button {
-    display: block;
-    background-color: #4688F1;
-    border: none;
-    color: white;
-    width: 85%;
+  color: rgb(245, 13, 90);
 }
 
 .tradeMark {
-    line-height: 24px;
+  line-height: 24px;
 }
 
 .footer-underline {
-    height: 5px;
-    width: 35%;
-    background-color: rgb(21, 7, 20);
-    border-radius: 2px;
-    margin: 9px auto;
+  height: 5px;
+  width: 35%;
+  background-color: rgb(21, 7, 20);
+  border-radius: 2px;
+  margin: 9px auto;
+}
+
+.button-box {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+
+.sign-in {
+  background-color: rgb(255, 234, 92);
+  color: rgb(5, 60, 80);
+}
+
+.log-in {
+  background-color: rgb(128, 15, 255);
+  color: white;
+}
+
+.button {
+  border-style: none;
+  border-radius: 5px;
+  line-height: 24px;
+  padding: 5px 0;
+  width: 40%;
+  margin: 2px 5px;
+  text-decoration: none;
 }
