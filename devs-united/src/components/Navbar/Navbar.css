@@ -1,5 +1,7 @@
 li {
     list-style: none;
+    display: inline-block;
+    margin: 0 10px;
 }
 
 a {
@@ -7,5 +9,6 @@ a {
 }
 
 a:hover {
-    color: rgb(142, 172, 238);
+    color: rgb(0,218,118);
+    font-size: 110%;
 }

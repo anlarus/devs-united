@@ -27,11 +27,7 @@ const Navbar = () => {
             Logged In
           </NavLink>
         </li>
-        <li>
-          <NavLink activeClassName={classes.active} to="/error">
-            Error
-          </NavLink>
-        </li>
+
       </ul>
     </nav>
   );

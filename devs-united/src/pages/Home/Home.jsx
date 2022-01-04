@@ -2,13 +2,18 @@ import React from "react";
 import "./Home.css";
 import { GoogleLogin } from "react-google-login";
 import DevsBigLogo from "../../utils/DevsBigLogo.jsx";
-
+import { useStyle } from "../../providers/StyleProvider";
 import {Link} from "react-router-dom"
 
 const Home = () => {
+
+  const {
+    style: { deviceClass }
+  } = useStyle();
+
   return (
-    <main>
-      <div className="font-face-silk">
+    <main className={"font-face-silk"}>
+      <div>
         <DevsBigLogo />
         <div className="button-box">
           <Link to="/signIn" className="sign-in button">Sign In</Link>

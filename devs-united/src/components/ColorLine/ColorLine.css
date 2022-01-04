@@ -11,8 +11,17 @@
   height: 42px;
   width: 42px;
 }
-.color-box:hover {
+
+.color-box:active {
+  transform: scale(0.95);
+}
+.color-box:checked {
+  box-sizing: content-box;
   border: solid white 3px;
+}
+
+.color-box:hover {
+  opacity: 0.7;
 }
 
 .red {

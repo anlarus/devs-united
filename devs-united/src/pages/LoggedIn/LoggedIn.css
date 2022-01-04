@@ -5,15 +5,34 @@
 span {
   color: rgb(245, 13, 90);
 }
-
-main {
+.logged-in-main {
   background-color: rgb(21, 7, 20);
+}
+
+.logged-in-form {
+display: flex;
+flex-flow: column nowrap;
+justify-content: space-around;
+}
+
+ 
+.logged-in-section {
+  max-width: 50%;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.tradeMark {
+  color:rgb(145,77,139);
+
 }
 
 .footer-underline {
   height: 5px;
   width: 35%;
-  background-color: rgb(21, 7, 20);
+  background-color: rgb(37, 13, 36);
   border-radius: 2px;
   margin: 9px auto;
 }

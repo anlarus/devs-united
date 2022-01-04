@@ -9,6 +9,16 @@ main {
   color: white;
 }
 
+
+.small {
+ 
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: space-evenly;
+  
+}
+
 h1 {
   margin: 190px auto 41px;
 }
@@ -57,8 +67,11 @@ span {
   border-style: none;
   border-radius: 5px;
   line-height: 24px;
-  padding: 5px 0;
+  padding: 5px;
   width: 40%;
-  margin: 2px 5px;
+  margin: 5px;
   text-decoration: none;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }

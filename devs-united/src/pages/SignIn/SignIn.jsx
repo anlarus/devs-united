@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./SignIn.css";
 import DevsBigLogo from "../../utils/DevsBigLogo.jsx";
-import ColorLine from "../ColorLine/ColorLine.jsx";
+import ColorLine from "../../components/ColorLine/ColorLine.jsx";
 import { auth, firestore } from "../../firebase";
 import { useStyle } from "../../providers/StyleProvider";
 import {
   UserNameInput,
   UserEmailInput,
   UserPasswordInput,
-} from "../UserInput/UserInput";
-import { GoogleButton } from "../GoogleButton/GoogleButton";
+} from "../../components/UserInput/UserInput";
+import { GoogleButton } from "../../components/GoogleButton/GoogleButton";
 
 const SignIn = () => {
   return (
-    <main>
-      <form className="font-face-silk">
+    <main className="sing-in-main">
+      <form className="font-face-silk sign-in-form">
         <DevsBigLogo />
         <h1>
           welcome <span>name!</span>
@@ -26,7 +26,7 @@ const SignIn = () => {
 
         <p className="font-face-fira">or sign in with your email</p>
 
-        <UserNameInput />
+        <UserNameInput value="Anna"/>
         <UserEmailInput />
         <UserPasswordInput />
 

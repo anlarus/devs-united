@@ -3,14 +3,13 @@ import "./Login.css";
 import { Link } from "react-router-dom";
 import DevsBigLogo from "../../utils/DevsBigLogo.jsx";
 
-import UserInput from "../UserInput/UserInput";
+import UserInput from "../../components/UserInput/UserInput";
 import { auth, firestore } from "../../firebase";
 import { GoogleLogin } from "react-google-login";
-import {
-  UserNameInput,
+import {  
   UserEmailInput,
   UserPasswordInput,
-} from "../UserInput/UserInput";
+} from "../../components/UserInput/UserInput";
 
 
 const Login = () => {
@@ -27,7 +26,7 @@ const Login = () => {
         <h1>
           welcome <span>name!</span>
         </h1>
-        <UserNameInput />
+        <UserEmailInput />
         <UserPasswordInput />
         <input type="submit" className="reg-button-cover" value="Login me" />
 

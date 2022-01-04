@@ -18,7 +18,7 @@ const StyleProvider = ({ children }) => {
     setStyle((previousStyle) => ({
       ...previousStyle,
       widthValue: width,
-      deviceClass: width > 700 ? "large" : width > 400 ? "middle" : "small"
+      deviceClass: width > 700 ? "large" : "small"
     }));
   }, [style.deviceClass, width]);
 

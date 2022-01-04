@@ -1,4 +1,4 @@
-main {
+.sing-in-main {
   background-color: rgb(46, 19, 44);
   width: 100%;
   height: 100vh;
@@ -10,6 +10,9 @@ main {
   box-sizing: border-box;
 }
 
+.sign-in-form {
+  width: 90%;
+}
 
 .font-face-fira {
   font-family: "Fira Code", monospace;
@@ -19,7 +22,6 @@ main {
 span {
   color: rgb(245, 13, 90);
 }
-
 
 .reg-button-cover {
   background-color: rgb(0, 218, 118);
@@ -32,7 +34,6 @@ span {
 
 .footer-underline {
   height: 5px;
-  width: 20%;
   background-color: rgb(21, 7, 20);
   border-radius: 2px;
   margin: 9px auto;
