@@ -7,7 +7,7 @@ const StyleProvider = ({ children }) => {
   const [width, setWidth] = useState(null);
   const [style, setStyle] = useState({
     deviceClass: null,
-    widthValue: null
+    widthValue: null,
   });
   useEffect(() => {
     function manageResize() {
@@ -18,15 +18,12 @@ const StyleProvider = ({ children }) => {
     setStyle((previousStyle) => ({
       ...previousStyle,
       widthValue: width,
-      deviceClass: width > 700 ? "large" : "small"
+      deviceClass: width > 700 ? "large" : "small",
     }));
   }, [style.deviceClass, width]);
 
-
   return (
-    <StyleContext.Provider value={{ style }}>
-      {children}
-    </StyleContext.Provider>
+    <StyleContext.Provider value={{ style }}>{children}</StyleContext.Provider>
   );
 };
 

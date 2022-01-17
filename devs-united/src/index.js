@@ -6,12 +6,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./fonts/silkscreen/slkscr.ttf";
 import StyleProvider from "./providers/StyleProvider";
+import UserAreaContext from "./providers/UserAreaProvider";
+import UserInputProvider from  "./providers/UserInputProvider";
 
 ReactDOM.render(
   <React.StrictMode>
     <StyleProvider>
       <BrowserRouter>
-        <App />
+        <UserAreaContext>
+          <UserInputProvider>
+          <App />
+          </UserInputProvider>
+        </UserAreaContext>
       </BrowserRouter>
     </StyleProvider>
   </React.StrictMode>,

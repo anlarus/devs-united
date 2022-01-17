@@ -3,10 +3,9 @@ import { useState } from "react";
 import "./ColorLine.css";
 import { colorsCollection } from "../../utils/colors";
 
-const ColorLine = () => {
+const ColorLine = ({userColor, setUserColor}) => {
   const [check, setCheck] = useState(false);
-  const [userColor, setUserColor] = useState("");
-  console.log(userColor);
+
 
   return (
     <>
@@ -16,12 +15,12 @@ const ColorLine = () => {
         {colorsCollection.map((colorbox) => {
           return (
             <div
-              onClick={(e) => {
+              onClick={() => {
                 setCheck(true);
-                setUserColor(e.target.backgroundColor);
-                console.log(userColor);
+                setUserColor(colorbox.color);
               }}
-              key={colorbox.id}
+              key={colorbox.color}
+              checked = {check}
               className={`color-box ${colorbox.color}`}
             />
           );

@@ -1,47 +1,63 @@
 import React, { useState, useEffect } from "react";
 import "./UserInput.css";
-import { auth, firestore } from "../../firebase";
 import { useStyle } from "../../providers/StyleProvider";
 
-export const UserNameInput = (props) => {
-  const [userName, setUserName] = useState("");
+export const SignUpInput = ({ body, setBody }) => {
+
+  const handleInput = (event) => {
+    setBody({ ...body, [event.target.name]: event.target.value });
+  };
+
+
   return (
-    <input
-      value={props.value}
-      onChange={(event) => setUserName(event.target.value)}
-      type="text"
-      className={`font-face-fira reg-input`}
-      placeholder="type your user name"
-    />
+    <>
+      <input
+        name="displayName"
+        onChange={handleInput}
+        type="text"
+        className={`font-face-fira reg-input`}
+        placeholder="type your user name"
+      />
+      <input
+        type="email"
+        name="email"
+        onChange={handleInput}
+        className={`font-face-fira reg-input`}
+        placeholder="type your e-mail"
+      />
+      <input
+        type="text"
+        name="password"
+        onChange={handleInput}
+        className={`font-face-fira reg-input`}
+        placeholder="type your password"
+      />
+    </>
   );
 };
 
-export const UserEmailInput = () => {
-  const [userEmail, setUserEmail] = useState("");
+export const SignInInput = ({ handleInput }) => {
   return (
-    <input
-      type="email"
-      onChange={(event) => setUserEmail(event.target.value)}
-      className={`font-face-fira reg-input`}
-      placeholder="type your e-mail"
-    />
+    <>
+      <input
+        type="email"
+        name="email"
+        onChange={handleInput}
+        className={`font-face-fira reg-input`}
+        placeholder="type your e-mail"
+      />
+      <input
+        type="text"
+        name="password"
+        onChange={handleInput}
+        className={`font-face-fira reg-input`}
+        placeholder="type your password"
+      />
+    </>
   );
 };
 
-export const UserPasswordInput = () => {
-  const [userPassword, setUserPassword] = useState("");
-
-  return (
-    <input
-      type="password"
-      onChange={(event) => setUserPassword(event.target.value)}
-      className={`font-face-fira reg-input`}
-      placeholder="type your password"
-    />
-  );
-};
-
-export const UserMessage = ({value, onChange}) => {
+export const UserMessage = ({ value, onChange, edit, editPost, post }) => {
   const {
     style: { deviceClass },
   } = useStyle();
@@ -49,14 +65,15 @@ export const UserMessage = ({value, onChange}) => {
   let msgLenght = message.length;
 
   return (
-      <>
+    <>
       <textarea
         className="font-face-fira"
-        name="message"      
-        placeholder="  What´s happening?"
+        name="message"
+        placeholder="What´s happening?"
         maxLength="200"
-        onChange={onChange}
-      >{value}</textarea>
+        onChange={edit ? editPost : onChange}
+        // value={edit ? value : "What´s happening?" }
+      ></textarea>
       <progress max="100" value={msgLenght}></progress>
       <div className="message-footer">
         <div className="message-footer-middle">
@@ -70,8 +87,13 @@ export const UserMessage = ({value, onChange}) => {
   );
 };
 
-export const UserFile = () => {
+export const UserFile = ({ handleUpload }) => {
   return (
-    <input className="font-face-silk post-input" type="file" title="Image" />
+    <input
+      className="font-face-silk post-input"
+      type="file"
+      title="Image"
+      onChange={handleUpload}
+    />
   );
 };

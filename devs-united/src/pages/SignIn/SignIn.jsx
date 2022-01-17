@@ -1,40 +1,87 @@
 import React, { useState, useEffect } from "react";
 import "./SignIn.css";
+import { Link, Redirect } from "react-router-dom";
 import DevsBigLogo from "../../utils/DevsBigLogo.jsx";
-import ColorLine from "../../components/ColorLine/ColorLine.jsx";
-import { auth, firestore } from "../../firebase";
-import { useStyle } from "../../providers/StyleProvider";
-import {
-  UserNameInput,
-  UserEmailInput,
-  UserPasswordInput,
-} from "../../components/UserInput/UserInput";
-import { GoogleButton } from "../../components/GoogleButton/GoogleButton";
+import firebase, { auth, firestore } from "../../firebase";
+import { GoogleLogin } from "react-google-login";
+import { SignInInput } from "../../components/UserInput/UserInput";
+import { useUserAreaContext } from "../../providers/UserAreaProvider";
+import { signInWithGoogle, signOut, storage } from "../../firebase";
+
 
 const SignIn = () => {
+  const [author, setAuthor] = useUserAreaContext();
+  const [body, setBody] = useState();
+
+  const signInWithGoogle = (response) => {
+    const { displayName, email, uid } = response.profileObj;
+    setAuthor({ displayName, email, uid });
+  };
+
+  const handleInput = (event) => {
+    setBody({ ...body, [event.target.name]: event.target.value });
+  };
+
+  const signIn = (event) => {
+    event.preventDefault();
+
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(body.email, body.password)
+      .then((authorCredential) => {
+        console.log("sign in success", authorCredential.user);
+        const { displayName, email, uid } = authorCredential.user;
+        setAuthor({ displayName, email, uid });
+        return <Redirect to="/loggedin" />;
+      })
+      .catch((error) => {
+        console.error(error.message);
+      });
+  };
+
   return (
-    <main className="sing-in-main">
-      <form className="font-face-silk sign-in-form">
+    <main>
+      <form className="font-face-silk" onSubmit={signIn}>
         <DevsBigLogo />
-        <h1>
-          welcome <span>name!</span>
-        </h1>
 
-        <ColorLine />
+        {author && (
+          <h1>
+            welcome <span>{author.displayName}</span>
+          </h1>
+        )}
+        <SignInInput handleInput={handleInput} />
 
-        <GoogleButton />
+        <input
+          type="submit"
+          className="reg-button-cover"
+          value="Sign in"
+          onSubmit={signIn}
+        />
 
-        <p className="font-face-fira">or sign in with your email</p>
+        <GoogleLogin
+          clientId="141550570435-721ct27r4e9u6ifl7heom8cm8dr4r4h9.apps.googleusercontent.com"
+          render={(renderProps) => (
+            <div className="button-cover">
+              <div className="google-logo-cover">
+                <img
+                  className="google-icon-svg"
+                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                />
+              </div>
+              <button
+                className="google-button"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+              >
+                Google login
+              </button>
+            </div>
+          )}
+          onSuccess={signInWithGoogle}
+          onFailure={signInWithGoogle}
+          cookiePolicy={"single_host_origin"}
+        />
 
-        <UserNameInput value="Anna"/>
-        <UserEmailInput />
-        <UserPasswordInput />
-
-        <input type="submit" className="reg-button-cover" value="Create user" />
-        <p className="font-face-fira tradeMark">
-          © 2021 Devs_United - <span>BETA</span>
-        </p>
-        <div className="footer-underline"></div>
       </form>
     </main>
   );

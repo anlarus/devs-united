@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import classes from "./Navbar.css";
 import "./Navbar.css";
 
-const Navbar = () => {
+const Navbar = ({signOut}) => {
   return (
     <nav>
       <ul>
@@ -13,17 +13,17 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink activeClassName={classes.active} to="/signIn">
+          <NavLink activeClassName={classes.active} to="/signup">
+            Sign Up
+          </NavLink>
+        </li>
+        <li>
+          <NavLink activeClassName={classes.active} to="/signin">
             Sign In
           </NavLink>
         </li>
         <li>
-          <NavLink activeClassName={classes.active} to="/login">
-            Login
-          </NavLink>
-        </li>
-        <li>
-          <NavLink activeClassName={classes.active} to="/loggedIn">
+          <NavLink activeClassName={classes.active} to="/loggedin">
             Logged In
           </NavLink>
         </li>
