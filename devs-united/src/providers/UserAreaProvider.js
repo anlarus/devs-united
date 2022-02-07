@@ -14,10 +14,31 @@ export const useUserAreaContext = () => {
 };
 
 const UserAreaContext = ({ children }) => {
-  const [author, setAuthor] = useState(null);
+  const [reg, setReg] = useState(null);
+  const [author, setAuthor] = useState();
+  console.log("print author from context", author);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user?.id) {
+        setAuthor(user);
+      } else {
+        //setAuthor(null);
+      }
+    });
+  }, []);
+
+  // const setAuthor = (author) => {
+  //   localStorage.setItem("author", JSON.stringify(author));
+  //   if (author == null) {
+  //     localStorage.removeItem("author");
+  //   }
+  // };
+
+  // const author = localStorage.getItem("author");
 
   return (
-    <Context.Provider value={[author, setAuthor ]}>
+    <Context.Provider value={[author, setAuthor, reg, setReg]}>
       {children}
     </Context.Provider>
   );

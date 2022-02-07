@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./ColorLine.css";
 import { colorsCollection } from "../../utils/colors";
 
-const ColorLine = ({userColor, setUserColor}) => {
+const ColorLine = ({setAuthorColor}) => {
   const [check, setCheck] = useState(false);
 
 
@@ -17,7 +17,7 @@ const ColorLine = ({userColor, setUserColor}) => {
             <div
               onClick={() => {
                 setCheck(true);
-                setUserColor(colorbox.color);
+                setAuthorColor(colorbox.color);
               }}
               key={colorbox.color}
               checked = {check}

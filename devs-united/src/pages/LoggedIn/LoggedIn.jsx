@@ -1,11 +1,9 @@
 import "./LoggedIn.css";
-import Avatar from "../../assets/images/avatarMusic.png";
-import { UserFile, UserMessage } from "../../components/UserInput/UserInput";
-import { PostCard } from "../../components/PostCard/PostCard";
+import CreatePost from "../../components/Post/CreatePost";
+import { PostCard } from "../../components/Post/PostCard/PostCard";
 import firebase, { firestore, storage, auth, signOut } from "../../firebase";
 import userEvent from "@testing-library/user-event";
 import { useStyle } from "../../providers/StyleProvider";
-import { useUserInput } from "../../providers/UserInputProvider";
 import React, { useState, useEffect, useRef } from "react";
 import { useUserAreaContext } from "../../providers/UserAreaProvider";
 
@@ -13,55 +11,48 @@ const LoggedIn = () => {
   const {
     style: { deviceClass },
   } = useStyle();
-  // const [posts, setPosts] = useState([]);
-  // const [body, setBody] = useState({
-  //   message: "",
-  //   author: "",
-  // });
-
-  const [
-    handleOnchange,
-    file,
-    setFile,
-    progress,
-    setProgress,
-    body,
-    setBody,
-    edit,
-    setEdit,
-    createPost,
-  ] = useUserInput();
-
-  const [posts, setPosts] = useState([]);
-  const [likes, setLikes] = [];
   const [author, setAuthor] = useUserAreaContext();
+  const [postAuthor, setPostAuthor] = useState();
+  const [file, setFile] = useState({});
+  const [edit, setEdit] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const likes = [];
+  const [isLiked, setIsLiked] = useState(likes.includes(author));
 
   useEffect(() => {
-    //    getPostsByLikesNumber();
+    getPosts();
+  }, []);
+
+  //una vista adicional, textarea, update - message - new value//
+
+  const getPosts = () => {
     const unsuscribe = firestore.collection("posts").onSnapshot((snapshot) => {
       const posts = snapshot.docs.map((doc) => {
         console.log(doc.data());
 
+        console.log(doc.id);
+
         return {
           message: doc.data().message,
           author: doc.data().author,
-          id: doc.id,
-          date: doc.data().date,
+          postID: doc.id,
+          createdOn: doc.data().createdOn,
+          isLiked: doc.data().isLiked || false,
           likes: doc.data().likes || [],
-          image: doc.data().image || false,
+          imageURL: doc.data().imageURL || false,
         };
       });
       setPosts(posts);
     });
-    auth.onAuthStateChanged((author) => {
-      setAuthor(author.uid);
-    });
+
     return () => unsuscribe();
-  }, []);
+  };
 
-  console.log(author);
-
-  console.log("posts come as", posts);
+  const getSuscribe = () => {
+    auth.onAuthStateChanged((author) => {
+      setAuthor(author);
+    });
+  };
 
   // const filterPosts = () => {  options tu filter posts
   //   firestore
@@ -74,102 +65,73 @@ const LoggedIn = () => {
   //     //.endAt(numberB)
 
   const erasePost = (id) => {
+    console.log("el id de post a eliminar es =>", id);
     firestore
       .collection(`posts`)
       .doc(id)
       .delete()
-      .then(() => {})
-      .catch((error) => console.error("some error has occured on deleting the post", error.message));
+      .then((post) => {
+        console.log("se elimino el post de referencia", post);
+      })
+      .catch((error) =>
+        console.error(
+          "some error has occured on deleting the post",
+          error.message
+        )
+      );
   };
-
-
 
   const likePost = (post, author) => {
+    const isInArray = post.likes.includes(author.uid);
     firestore
       .doc(`posts/${post.id}`)
       .update({
-        likes: [...post.likes, author],
+        likes: firebase.firestore.FieldValue.arrayRemove(author.uid),
+        // : likes: firebase.firestore.FieldValue.arrayUnion(author.uid)}
       })
       .then(() => {})
       .catch((error) =>
         console.error(
-          "some error has occured on liking the post",
+          "some error has occured on liking/disliking the post",
           error.message
         )
       );
   };
 
-  const unLikePost = (post) => {
-    firestore
-      .doc(`posts/${post.id}`)
-      .update({
-        likes: post.likes < 1 ? post.likes : post.likes - 1,
-      })
-      .then(() => {})
-      .catch((error) =>
-        console.error(
-          "some error has occured on unliking the post",
-          error.message
-        )
-      );
+  const signOut = (e) => {
+    e.preventDefault();
+    auth.signOut().then(() => {
+      setAuthor(null);
+      console.log("the author is signed out");
+    });
   };
-
-  const editPost = (post) => {
-    setEdit(!edit);
-    edit ? setBody(post) : setBody({});
-  };
-
- 
 
   return (
     <div className="font-face-silk">
-      <input
-        type="submit"
-        className="reg-button-cover"
-        value="Sign Out"
-        onSubmit={signOut}
-      />
+      <button className="reg-button-cover" onClick={signOut}>
+        Sign Out
+      </button>
       <main className="logged-in-main">
-        <form className="logged-in-form" onSubmit={createPost}>
-          <div className="message-cover">
-            <div className="message-box-left">
-              <img src={Avatar} alt="avatar profile image" />
-            </div>
-            <div className="message-box-right">
-              <UserMessage
-                value={body.message}
-                onChange={handleOnchange}
-                edit={edit}
-              />
-            </div>
-          </div>
-          <div>
-            <UserFile handleUpload={handleUploadImage} />
-            <input className="font-face-silk" type="submit" value="post" />
-          </div>
-          <progress
-            className="upload-progress"
-            max="100"
-            value={progress}
-          ></progress>
-        </form>
+        <CreatePost setPostAuthor={setPostAuthor} getPosts={getPosts} />
 
         <section className="logged-in-section">
           {posts?.map((post) => {
             return (
               <PostCard
-                key={post.id}
-                id={post.id}
+                key={post.postID}
+                id={post.postID}
                 message={post.message}
-                date={post.date}
+                createdOn={post.createdOn}
                 likes={post.likes}
                 erasePost={erasePost}
                 likePost={likePost}
-                unLikePost={unLikePost}
-                editPost={editPost}
+                setEdit={setEdit}
+                edit={edit}
                 post={post}
-                image={post.image}
+                imageURL={post.imageURL}
                 author={author}
+                isLiked={isLiked}
+                setIsLiked={setIsLiked}
               />
             );
           })}

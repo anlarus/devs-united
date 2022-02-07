@@ -1,42 +1,35 @@
 import "./App.css";
-import { BrowserRouter as Link, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import SignUp from "./pages/SignUp/SignUp.jsx";
-import Header from "./components/Header/Header";
+import { BrowserRouter as Route } from "react-router-dom";
+import Entrance from "./pages/Entrance/Entrance.jsx";
+import Header from "./UI/Header/Header";
 import LoggedIn from "./pages/LoggedIn/LoggedIn";
-import SignIn from "./pages/SignIn/SignIn";
-import {Tm} from "./components/TM/Tm"
-
-
+//import { Edit } from "./Edit";
+import { useUserAreaContext } from "./providers/UserAreaProvider";
+//import { useAuthState } from "react-firebase-hooks";
 
 function App() {
-
-
-  
+  const [author] = useUserAreaContext();
+  //const [user] = useAuthState();
 
   return (
-    <div className="App">  
-
+    <div className="App">
       <Header />
 
-        <Route exact path="/">
-          <Home />
-        </Route>
-        
-        <Route exact path="/signup">
-          <SignUp />
-        </Route>
+      <Route exact path="/">
+        <Entrance />
+      </Route>
 
-        <Route exact path="/loggedin">
-          <LoggedIn />
-        </Route>
+      {/* <Route exact path="/edit/:id">
+        <Edit />
+      </Route> */}
 
-        <Route exact path="/signin">
-          <SignIn />
-        </Route>
-
-        <Tm />
-      
+      {author && (
+        <>
+          <Route exact path="/loggedin">
+            <LoggedIn />
+          </Route>
+        </>
+      )}
     </div>
   );
 }

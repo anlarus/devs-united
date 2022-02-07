@@ -27,3 +27,8 @@ header {
   display: inline-block;
   max-width: 52px;
 }
+
+.header-img-container img {
+  max-height: 35px;
+  
+}

@@ -6,45 +6,47 @@
 // import Gimnast from "../assets/images/BoyHulaHoop.png";
 
 
-// "src": "logo512.png",
-// "type": "image/png",
-// "sizes": "512x512"
-
 // export const avatarsCollection = [
 //     {
 //       id: 1,
-//       url: {Musician},
+//       url: Musician,
 //       alt: "girl_in_headphones",
+//       type: "image/png",
 //       checked: false,
 //     },
 //     {
 //       id: 2,
-//       url: {Ranger},
+//       url: Ranger,
 //       alt: "girl_ranger",
+//       type: "image/png",
 //       checked: false,
 //     },
 //     {
 //       id: 3,
-//       url: {Gardener},
+//       url: Gardener,
 //       alt: "girl_gardener",
+//       type: "image/png",
 //       checked: false,
 //     },
 //     {
 //       id: 4,
-//       url: {Gimnast},
+//       url: Gimnast,
 //       alt: "boy_gimnastician",
+//       type: "image/png",
 //       checked: false,
 //     },
 //     {
 //       id: 5,
-//       url: {Skater},
+//       url: Skater,
 //       alt: "boy_skateboard",
+//       type: "image/png",
 //       checked: false,
 //     },
 //     {
 //       id: 6,
-//       url: {Pilot},
+//       url: Pilot,
 //       alt: "boy_pilot",
+//       type: "image/png",
 //       checked: false,
 //     },
 //   ];

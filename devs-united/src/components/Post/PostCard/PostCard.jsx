@@ -1,28 +1,44 @@
 import { FaFeather, FaHeart, FaRegHeart, FaTrashAlt } from "react-icons/fa";
-import Avatar3 from "../../assets/images/avatarRanger.png";
-
+import Avatar3 from "../../../assets/images/avatarGardener.png";
 
 import "./PostCard.css";
 
 export const PostCard = ({
   message,
-  date,
+  createdOn,
   likes,
   id,
   erasePost,
   likePost,
-  unLikePost,
   post,
-  image,
-  author
+  imageURL,
+  author,
+  isLiked,
+  edit,
+  setEdit,
 }) => {
-  console.log(date);
 
-  const day = new Date(date).toLocaleDateString("en-GB", {
+console.log("image url en post card", imageURL)
+
+console.log("post ID en post card", id)
+
+console.log("post created en post card", createdOn)
+
+console.log("author enter inside post card as=>", author)
+
+
+  const day = new Date(createdOn).toLocaleDateString("en-GB", {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
+
+
+
+  const editPost = (post) => {
+    setEdit(!edit);
+    
+  };
 
   return (
     <>
@@ -30,14 +46,14 @@ export const PostCard = ({
       <div className="post-cover">
         <div className="post-avatar">
           <img src={Avatar3} alt="avatar profile image" />
-          {image && <img src={image} alt="post attach" />}
+          {imageURL && <img src={imageURL} alt="post attach" />}
         </div>
         <div className="post-box font-face-fira">
           <div className="post-first-line">
             <div className="user-info-cover">
               <button className="font-face-silk username-clickable">
-                {/* {author.displayName} */}
-              </button>{" "}
+                {author.displayName}
+              </button>
               - {day}
             </div>
             <div className="erase" onClick={(event) => erasePost(id)}>
@@ -45,16 +61,20 @@ export const PostCard = ({
             </div>
           </div>
           <div>{message}</div>
+    
           <div className="post-footer">
             <div className="post-footer-like">
-              <FaHeart
-                className="redHeart"
-                onClick={() => likePost(post, author)}
-              />
-              <FaRegHeart onClick={(event) => unLikePost(post)} />
+              {isLiked ? (
+                <FaHeart
+                  className="redHeart"
+                  onClick={() => likePost(post, author)}
+                />
+              ) : (
+                <FaRegHeart onClick={() => likePost(post, author)} />
+              )}
             </div>
             <div className="post-footer-likes">
-              <span>{likes}</span>
+              <span>{likes.length}</span>
             </div>
             <div className="erase">
               <FaFeather />

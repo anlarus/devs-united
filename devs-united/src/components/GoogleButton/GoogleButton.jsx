@@ -1,13 +1,10 @@
 import { GoogleLogin } from "react-google-login";
-import "./GoogleButton.css"
+import "./GoogleButton.css";
 
-export const GoogleButton = () => {
-
-    const responseGoogle = (response) => {
-        console.log(response.profileObj);
-      };
-    
-
+export const GoogleButton = ({ enter }) => {
+  const responseGoogle = (response) => {
+    console.log(response.profileObj);
+  };
 
   return (
     <GoogleLogin
@@ -16,7 +13,7 @@ export const GoogleButton = () => {
         <div className="button-cover">
           <div className="google-logo-cover">
             <img
-              class="google-icon-svg"
+              className="google-icon-svg"
               src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
             />
           </div>
@@ -25,8 +22,8 @@ export const GoogleButton = () => {
             onClick={renderProps.onClick}
             disabled={renderProps.disabled}
           >
-            Sign In with Google
-          </button>
+            {`${enter} with Google`}
+          </button>  
         </div>
       )}
       onSuccess={responseGoogle}
