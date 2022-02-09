@@ -38,28 +38,35 @@ const Entrance = () => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         setAuthor(userCredential.user);
         //imprimimos el objeto que devuelve auth para suscribir bien sus campos segun la orden
         //destructuramos el objeto para acceder a sus valores
-        const { email, uid, photoURL } = userCredential.user;
+        const { email, uid } = userCredential.user;
 
         firestore
           .collection("authors")
           .doc(uid)
           .set({
-            photoURL: photoURL || "https://ibb.co/BwqVf19",
+            avatar: avatar,
             email: email,
             uid: uid,
             authorColor: authorColor,
             displayName: displayName,
             posts: [],
           });
+
+          const user = await getAuthor(uid);
+
+          setAuthor(user);
+
       })
       .catch((error) => {
         console.error(error.message);
       })
-      .finally(setReg(!reg));
+      .finally(
+
+        setReg(!reg));
   };
 
   const signIn = (event) => {
@@ -85,9 +92,7 @@ const Entrance = () => {
       .finally(setReg(!reg));
   };
 
-  const handleUploadAvatar = (event) => {
-    setAvatar(event.target.files[0]);
-  };
+ 
 
   const registerHandler = () => {
     setReg(!reg);
@@ -96,16 +101,14 @@ const Entrance = () => {
 
   return (
     <main className="sing-in-main">
-      <DevsBigLogo />
-
       {!author && !reg && (
         <>
+          <DevsBigLogo />
+
           <form className="font-face-silk" onSubmit={signIn}>
             <p>
               welcome{" "}
-              <span>{`${
-                displayName ? { displayName } : "anonimous author"
-              }`}</span>
+              <span>{`${displayName ? { displayName } : "dear author"}`}</span>
             </p>
 
             <SignInInput
@@ -124,20 +127,25 @@ const Entrance = () => {
       )}
 
       {!author && reg && (
-        <form className="font-face-silk sign-in-form" onSubmit={signUp}>
-          <SignUpInput
-            body={body}
-            setBody={setBody}
-            setDisplayName={setDisplayName}
-            setAuthorColor={setAuthorColor}
-            signInWithGoogle={signInWithGoogle}
-            enter={enter}
-            signUp={signUp}
-          />
-          <p onClick={registerHandler}>
-            Or <span>Sign In</span>
-          </p>
-        </form>
+        <>
+          <DevsBigLogo />
+
+          <form className="font-face-silk sign-in-form" onSubmit={signUp}>
+            <SignUpInput
+              body={body}
+              setBody={setBody}
+              setDisplayName={setDisplayName}
+              setAuthorColor={setAuthorColor}
+              setAvatar={setAvatar}
+              signInWithGoogle={signInWithGoogle}
+              enter={enter}
+              signUp={signUp}
+            />
+            <p onClick={registerHandler}>
+              Or <span>Sign In</span>
+            </p>
+          </form>
+        </>
       )}
     </main>
   );

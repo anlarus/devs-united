@@ -4,7 +4,7 @@ import Avatar from "../../assets/images/avatarMusic.png";
 import "./CreatePost.css";
 import { useUserAreaContext } from "../../providers/UserAreaProvider";
 
-const CreatePost = ({ getPosts, setPostAuthor }) => {
+const CreatePost = ({ getPosts }) => {
   const [post, setPost] = useState({
     message: "",
     author: "",
@@ -25,7 +25,10 @@ const CreatePost = ({ getPosts, setPostAuthor }) => {
     setPost((previousPostState) => ({
       ...previousPostState,
       author: author.uid,
+      authorColor: author.authorColor,
       authorName: author.displayName,
+      avatar: author.avatar || "https://3603f.csb.app/",
+      imageURL: "",
       [name]: value,
     }));
   };
@@ -85,7 +88,7 @@ const CreatePost = ({ getPosts, setPostAuthor }) => {
         <form className="logged-in-form" onSubmit={createPost}>
           <div className="message-cover">
             <div className="message-box-left">
-              <img src={Avatar} alt="avatar profile image" />
+              <img src={author?.avatar || Avatar} alt="avatar profile image" />
             </div>
             <div className="message-box-right">
               <textarea

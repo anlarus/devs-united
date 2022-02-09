@@ -16,28 +16,32 @@ export const PostCard = ({
   isLiked,
   edit,
   setEdit,
+  authorName,
 }) => {
+ 
+  console.log("post enter inside post card as=>", post);
+  console.log("post COLOR enter inside post card as=>", post.authorColor);
 
-console.log("image url en post card", imageURL)
+  console.log("post ID en post card", id);
 
-console.log("post ID en post card", id)
-
-console.log("post created en post card", createdOn)
-
-console.log("author enter inside post card as=>", author)
+  console.log("image url en post card", post.imageURL);
 
 
-  const day = new Date(createdOn).toLocaleDateString("en-GB", {
+  console.log("post created en post card", createdOn);
+
+  
+  console.log("author enter inside post card as=>", author);
+
+  const day = new Date(createdOn).toLocaleString("en-GB", {
     year: "numeric",
     month: "short",
     day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
   });
-
-
 
   const editPost = (post) => {
     setEdit(!edit);
-    
   };
 
   return (
@@ -45,14 +49,14 @@ console.log("author enter inside post card as=>", author)
       {" "}
       <div className="post-cover">
         <div className="post-avatar">
-          <img src={Avatar3} alt="avatar profile image" />
-          {imageURL && <img src={imageURL} alt="post attach" />}
+          <img src={post.avatar || Avatar3} alt="avatar profile image" />
+          {post.imageURL && <img src={post.imageURL} alt="post attach" />}
         </div>
         <div className="post-box font-face-fira">
           <div className="post-first-line">
             <div className="user-info-cover">
-              <button className="font-face-silk username-clickable">
-                {author.displayName}
+              <button className={`font-face-silk username-clickable ${post.authorColor}`}>
+                {post.authorName}
               </button>
               - {day}
             </div>
@@ -61,7 +65,7 @@ console.log("author enter inside post card as=>", author)
             </div>
           </div>
           <div>{message}</div>
-    
+
           <div className="post-footer">
             <div className="post-footer-like">
               {isLiked ? (

@@ -3,7 +3,7 @@ import "./UserInput.css";
 import { useStyle } from "../../providers/StyleProvider";
 import ColorLine from "../ColorLine/ColorLine";
 import { GoogleButton } from "../GoogleButton/GoogleButton";
-// import AvatarLine from "../../utils/AvatarLine/AvatarLine";
+import AvatarLine from "../../utils/AvatarLine/AvatarLine";
 
 export const SignUpInput = ({
   body,
@@ -11,9 +11,9 @@ export const SignUpInput = ({
   setDisplayName,
   setAuthorColor,
   enter,
-  handleUploadAvatar,
-   avatar,
-  signUp
+  setAvatar,
+  avatar,
+  signUp,
 }) => {
   const handleInput = (event) => {
     setBody({ ...body, [event.target.name]: event.target.value });
@@ -22,7 +22,7 @@ export const SignUpInput = ({
   return (
     <>
       <ColorLine setAuthorColor={setAuthorColor} />
-      {/* <AvatarLine/> */}
+      <AvatarLine setAvatar={setAvatar} />
       <GoogleButton enter={enter} />
       <p className="font-face-fira">or sign up with your email</p>
       <input
@@ -48,14 +48,7 @@ export const SignUpInput = ({
         className={`font-face-fira reg-input`}
         placeholder="type your password"
       />
-      <input
-        className="font-face-silk post-input"
-        type="file"
-        title="Image"
-        name="photoURL"
-        value={avatar}
-        handleUpload={handleUploadAvatar}
-      />
+
       <input
         type="submit"
         className="reg-button-cover"
@@ -68,7 +61,7 @@ export const SignUpInput = ({
 
 export const SignInInput = ({ body, setBody, enter, signIn }) => {
   const handleInput = (event) => {
-    let {name, value} = event.target;
+    let { name, value } = event.target;
     setBody({ ...body, [name]: value });
   };
 

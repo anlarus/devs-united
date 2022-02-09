@@ -3,7 +3,7 @@
   display: inline;
   padding: 0 10px;
   line-height: 32px;
-  background-color: rgb(128, 15, 255);
+ /* background-color: rgb(128, 15, 255); */
   font-size: 18px;
   margin: 5px 0;
   color:white;
@@ -82,4 +82,24 @@
   margin: 0 10px;
 }
 
+
+.username-clickable.red {
+  background-color: rgb(245, 13, 90);
+}
+.username-clickable.orange {
+  background-color: rgb(255, 134, 92);
+}
+.username-clickable.yellow {
+  background-color: rgb(255, 234, 92);
+}
+.username-clickable.green {
+  background-color: rgb(0, 218, 118);
+}
+.username-clickable.blue {
+  background-color: rgb(0, 150, 206);
+}
+
+.username-clickable.violet {
+  background-color: rgb(128, 15, 255);
+}
 

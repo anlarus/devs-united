@@ -35,6 +35,9 @@ const LoggedIn = () => {
         return {
           message: doc.data().message,
           author: doc.data().author,
+          authorName: doc.data().authorName,
+          authorColor: doc.data().authorColor,
+          avatar: doc.data().avatar,
           postID: doc.id,
           createdOn: doc.data().createdOn,
           isLiked: doc.data().isLiked || false,
@@ -48,11 +51,11 @@ const LoggedIn = () => {
     return () => unsuscribe();
   };
 
-  const getSuscribe = () => {
-    auth.onAuthStateChanged((author) => {
-      setAuthor(author);
-    });
-  };
+  // const getSuscribe = () => {
+  //   auth.onAuthStateChanged((author) => {
+  //     setAuthor(author);
+  //   });
+  // };
 
   // const filterPosts = () => {  options tu filter posts
   //   firestore
@@ -98,19 +101,11 @@ const LoggedIn = () => {
       );
   };
 
-  const signOut = (e) => {
-    e.preventDefault();
-    auth.signOut().then(() => {
-      setAuthor(null);
-      console.log("the author is signed out");
-    });
-  };
+
 
   return (
     <div className="font-face-silk">
-      <button className="reg-button-cover" onClick={signOut}>
-        Sign Out
-      </button>
+
       <main className="logged-in-main">
         <CreatePost setPostAuthor={setPostAuthor} getPosts={getPosts} />
 
@@ -128,7 +123,6 @@ const LoggedIn = () => {
                 setEdit={setEdit}
                 edit={edit}
                 post={post}
-                imageURL={post.imageURL}
                 author={author}
                 isLiked={isLiked}
                 setIsLiked={setIsLiked}
