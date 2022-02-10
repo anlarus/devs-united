@@ -1,56 +1,53 @@
+textarea {
+  background-color: rgb(238, 175, 234);
+  border: none;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 0;
+  color: rgb(37, 13, 36);
+  font-family: "Fira Code", monospace;
+  font-size: 18px;
+}
 
-  textarea {
-    background-color: rgb(238, 175, 234);
-    border: none;
-    width: 100%;
-    height: 200px;
-    margin-bottom: 0;
-    color: rgb(37, 13, 36);
-    font-family: "Fira Code", monospace;
-    font-size: 18px;
-  }
-  
-  textarea::placeholder {
-    color: rgb(145, 77, 139);
-    font-family: "Fira Code", monospace;
-    font-size: 18px;
-  }
-  
-  .message-cover {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    align-items: center;
-  }
-  
-  .message-box-left {
-    width: 100px;
-    height: 92px;
-    background-color: rgb(145, 77, 139);
-    border-radius: 50%;
-  }
-  
-  .message-box-right {
-    width: 90%;
-    margin: 0 0 0 20px;
-  }
-  
-  .message-box-left img {
-    display: inline-block;
-    max-width: 100%;
-  }
-  
-  .message-footer {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .message-footer-middle {
-    display: inline-block;
-  }
+textarea::placeholder {
+  color: rgb(145, 77, 139);
+  font-family: "Fira Code", monospace;
+  font-size: 18px;
+}
 
-  
+.message-cover {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.message-box-left {
+  width: 100px;
+  height: 92px;
+  background-color: rgb(145, 77, 139);
+  border-radius: 50%;
+}
+
+.message-box-right {
+  width: 90%;
+  margin: 0 0 0 20px;
+}
+
+.message-box-left img {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.message-footer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.message-footer-middle {
+  display: inline-block;
+}
 
 progress[value] {
   /* Reset the default appearance */
@@ -97,7 +94,7 @@ progress {
 
 ::-webkit-file-upload-button {
   background: rgb(47, 17, 45);
-  color: rgb(145,77,139);
+  color: rgb(145, 77, 139);
   padding: 1em;
   border: none;
   -webkit-border-radius: 2px;
@@ -108,4 +105,95 @@ progress {
 
 input[type="file"] {
   color: transparent;
+}
+
+.username-clickable {
+  border: none;
+  display: inline;
+  padding: 0 10px;
+  line-height: 32px;
+  /* background-color: rgb(128, 15, 255); */
+  font-size: 18px;
+  margin: 5px 0;
+  color: white;
+}
+
+.redHeart {
+  color: rgb(245, 13, 90);
+}
+
+.post-cover {
+  border-top: solid 2px rgb(96, 38, 91);
+  background-color: rgb(46, 19, 44);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 5px 15px;
+  margin: 0;
+  width: 100%;
+  color: white;
+}
+
+.post-box {
+  width: 90%;
+  margin: 0 0 0 20px;
+  flex-flow: column nowrap;
+  align-items: justify;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.post-first-line {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-info-cover {
+  max-width: 50%;
+}
+
+.erase {
+  max-width: 10%;
+}
+
+.post-avatar {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(145, 77, 139);
+  border-radius: 50%;
+  margin: 10px 5px;
+}
+
+.post-avatar img {
+  display: inline-block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.erase {
+  width: 20px;
+  margin: 0 10px;
+}
+
+.username-clickable.red {
+  background-color: rgb(245, 13, 90);
+}
+.username-clickable.orange {
+  background-color: rgb(255, 134, 92);
+}
+.username-clickable.yellow {
+  background-color: rgb(255, 234, 92);
+}
+.username-clickable.green {
+  background-color: rgb(0, 218, 118);
+}
+.username-clickable.blue {
+  background-color: rgb(0, 150, 206);
+}
+
+.username-clickable.violet {
+  background-color: rgb(128, 15, 255);
 }

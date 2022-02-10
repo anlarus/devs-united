@@ -1,24 +1,21 @@
 import { FaFeather, FaHeart, FaRegHeart, FaTrashAlt } from "react-icons/fa";
 import Avatar3 from "../../../assets/images/avatarGardener.png";
-
 import "./PostCard.css";
 
 export const PostCard = ({
   message,
   createdOn,
+  updatedOn,
   likes,
   id,
   erasePost,
   likePost,
   post,
-  imageURL,
   author,
   isLiked,
   edit,
   setEdit,
-  authorName,
 }) => {
- 
   console.log("post enter inside post card as=>", post);
   console.log("post COLOR enter inside post card as=>", post.authorColor);
 
@@ -26,13 +23,19 @@ export const PostCard = ({
 
   console.log("image url en post card", post.imageURL);
 
-
   console.log("post created en post card", createdOn);
 
-  
   console.log("author enter inside post card as=>", author);
 
-  const day = new Date(createdOn).toLocaleString("en-GB", {
+  const postCreated = new Date(createdOn).toLocaleString("en-GB", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
+
+  const postUpdated = new Date(updatedOn).toLocaleString("en-GB", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -55,10 +58,12 @@ export const PostCard = ({
         <div className="post-box font-face-fira">
           <div className="post-first-line">
             <div className="user-info-cover">
-              <button className={`font-face-silk username-clickable ${post.authorColor}`}>
+              <button
+                className={`font-face-silk username-clickable ${post.authorColor}`}
+              >
                 {post.authorName}
               </button>
-              - {day}
+              - {postCreated}
             </div>
             <div className="erase" onClick={(event) => erasePost(id)}>
               <FaTrashAlt />
@@ -80,6 +85,10 @@ export const PostCard = ({
             <div className="post-footer-likes">
               <span>{likes.length}</span>
             </div>
+            {postUpdated && (
+              <span className="user-info-cover"> - {postUpdated} </span>
+            )}
+
             <div className="erase">
               <FaFeather />
             </div>

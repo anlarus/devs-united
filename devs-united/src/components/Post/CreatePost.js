@@ -10,6 +10,7 @@ const CreatePost = ({ getPosts }) => {
     author: "",
     imageURL: "",
     createdOn: "",
+    updatedOn: "",
     likes: [],
   });
   const [author] = useUserAreaContext();

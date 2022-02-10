@@ -40,6 +40,7 @@ const LoggedIn = () => {
           avatar: doc.data().avatar,
           postID: doc.id,
           createdOn: doc.data().createdOn,
+          updatedOn: doc.data().updatedOn,
           isLiked: doc.data().isLiked || false,
           likes: doc.data().likes || [],
           imageURL: doc.data().imageURL || false,
@@ -117,6 +118,7 @@ const LoggedIn = () => {
                 id={post.postID}
                 message={post.message}
                 createdOn={post.createdOn}
+                updatedOn={post.updatedOn}
                 likes={post.likes}
                 erasePost={erasePost}
                 likePost={likePost}
