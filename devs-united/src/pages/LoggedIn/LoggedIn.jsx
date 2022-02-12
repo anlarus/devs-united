@@ -75,7 +75,7 @@ const LoggedIn = () => {
       .doc(id)
       .delete()
       .then((post) => {
-        console.log("se elimino el post de referencia", post);
+        console.log("se elimino el post de referencia");
       })
       .catch((error) =>
         console.error(
@@ -85,15 +85,34 @@ const LoggedIn = () => {
       );
   };
 
-  const likePost = (post, author) => {
-    const isInArray = post.likes.includes(author.uid);
+  const likePost = (id) => {
+    console.log("the liked post is =>", id);
+
     firestore
-      .doc(`posts/${post.id}`)
+      .collection(`posts`)
+      .doc(id)
+      .get()
+      .then(async (post) => {
+        console.log("se trajo el post de referencia", post.data());
+        updateLike(post, id, author);
+      });
+  };
+
+  const updateLike = (post, id, author) => {
+    const isInArray = post?.data().likes?.includes(author.uid);
+    firestore
+      .doc(`posts/${id}`)
       .update({
-        likes: firebase.firestore.FieldValue.arrayRemove(author.uid),
-        // : likes: firebase.firestore.FieldValue.arrayUnion(author.uid)}
+        ...(isInArray && {
+          likes: firebase.firestore.FieldValue.arrayRemove(author.uid),
+        }),
+        ...(!isInArray && {
+          likes: firebase.firestore.FieldValue.arrayUnion(author.uid),
+        }),
       })
-      .then(() => {})
+      .then(() => {
+        console.log("the likes for this post has been successfully updated");
+      })
       .catch((error) =>
         console.error(
           "some error has occured on liking/disliking the post",
@@ -102,11 +121,8 @@ const LoggedIn = () => {
       );
   };
 
-
-
   return (
     <div className="font-face-silk">
-
       <main className="logged-in-main">
         <CreatePost setPostAuthor={setPostAuthor} getPosts={getPosts} />
 
