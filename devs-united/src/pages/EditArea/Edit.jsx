@@ -1,13 +1,41 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { FaSdCard, FaBackward } from "react-icons/fa";
-import firebase, { firestore, storage, auth, signOut } from "../../../firebase";
-import Avatar from "../../../assets/images/Girl&Skateboard.png";
+import { FaSdCard } from "react-icons/fa";
+import firebase, { firestore, storage, auth, signOut } from "../../firebase";
+import Avatar from "../../assets/images/Girl&Skateboard.png";
+import { useEditAreaContext } from "../../providers/EditAreaProvider";
 
-export const Edit = ({ id, postCreated, postUpdated, editPost, handleMessage, post, edittedMessage, setEdit, edit }) => {
+export const Edit = () => {
 
   //const { id } = useParams();
+  const [edit, setEdit, post, id, edittedMessage, setEdittedMessage] = useEditAreaContext();
+
  
+  const editPost = () => {
+    console.log("the editted message is =>", edittedMessage);
+
+    firestore
+      .collection("posts")
+      .doc(id)
+      .update({
+        message: edittedMessage,
+        updatedOn: Date.now(),
+      })
+      .then(() => {
+        console.log("post modified successfully");
+        setEdit(!edit);
+      })
+      .catch((err) =>
+        console.error("error during editting the post", err.message)
+      );
+  };
+
+
+
+  const handleMessage = (e) => {
+    setEdittedMessage(e.target.value);
+  };
+
 
   return (
     <>
@@ -24,7 +52,7 @@ export const Edit = ({ id, postCreated, postUpdated, editPost, handleMessage, po
               >
                 {post?.authorName}
               </button>
-              - {postCreated}
+
             </div>
           </div>
           <div>
@@ -34,13 +62,10 @@ export const Edit = ({ id, postCreated, postUpdated, editPost, handleMessage, po
               onChange={handleMessage}
             />
           </div>
-          <span>{postUpdated}</span>
+
         </div>
         <div className="erase" onClick={() => editPost(id)}>
           <FaSdCard />
-        </div>
-        <div className="erase" onClick={() => setEdit(!edit)}>
-          <FaBackward />
         </div>
       </div>
     </>

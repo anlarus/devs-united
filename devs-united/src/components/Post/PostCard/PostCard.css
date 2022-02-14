@@ -67,7 +67,7 @@
 .post-footer {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-items: center;
   margin: 10px 0;
 }

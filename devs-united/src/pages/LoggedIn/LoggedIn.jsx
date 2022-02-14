@@ -16,11 +16,15 @@ const LoggedIn = () => {
   const [file, setFile] = useState({});
   const [edit, setEdit] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [comments, setComments] = useState([]);
   const likes = [];
-  const [isLiked, setIsLiked] = useState(likes.includes(author));
+  const [filterFavourites, setFilterFavourites] = useState(false);
+
+  console.log("from logged in", author);
 
   useEffect(() => {
     getPosts();
+    getComments();
   }, []);
 
   //una vista adicional, textarea, update - message - new value//
@@ -28,9 +32,9 @@ const LoggedIn = () => {
   const getPosts = () => {
     const unsuscribe = firestore.collection("posts").onSnapshot((snapshot) => {
       const posts = snapshot.docs.map((doc) => {
-        console.log(doc.data());
+        console.log("post contaner from getpost", doc.data());
 
-        console.log(doc.id);
+        console.log("post id from getPost", doc.id);
 
         return {
           message: doc.data().message,
@@ -41,7 +45,6 @@ const LoggedIn = () => {
           postID: doc.id,
           createdOn: doc.data().createdOn,
           updatedOn: doc.data().updatedOn,
-          isLiked: doc.data().isLiked || false,
           likes: doc.data().likes || [],
           imageURL: doc.data().imageURL || false,
         };
@@ -52,11 +55,32 @@ const LoggedIn = () => {
     return () => unsuscribe();
   };
 
-  // const getSuscribe = () => {
-  //   auth.onAuthStateChanged((author) => {
-  //     setAuthor(author);
-  //   });
-  // };
+  const getComments = () => {
+    const unsuscribe = firestore
+      .collection("comments")
+      .onSnapshot((snapshot) => {
+        const comments = snapshot.docs.map((doc) => {
+          console.log(doc.data());
+
+          console.log(doc.id);
+
+          return {
+            message: doc.data().message,
+            author: doc.data().author,
+            authorName: doc.data().authorName,
+            authorColor: doc.data().authorColor,
+            commentID: doc.id,
+            createdOn: doc.data().createdOn,
+            likes: doc.data().likes || [],
+            referenceToPost: doc.data().referenceToPost,
+          };
+        });
+
+        setComments(comments);
+      });
+
+    return () => unsuscribe();
+  };
 
   // const filterPosts = () => {  options tu filter posts
   //   firestore
@@ -80,6 +104,23 @@ const LoggedIn = () => {
       .catch((error) =>
         console.error(
           "some error has occured on deleting the post",
+          error.message
+        )
+      );
+  };
+
+  const eraseComment = (commentID) => {
+    console.log("el id de comment a eliminar es =>", commentID);
+    firestore
+      .collection(`comments`)
+      .doc(commentID)
+      .delete()
+      .then((comment) => {
+        console.log("se elimino el comment de referencia");
+      })
+      .catch((error) =>
+        console.error(
+          "some error has occured on deleting the comment",
           error.message
         )
       );
@@ -121,31 +162,129 @@ const LoggedIn = () => {
       );
   };
 
+  const commentPost = (id) => {
+    console.log("the post to comment is =>", id);
+
+    firestore
+      .collection(`posts`)
+      .doc(id)
+      .get()
+      .then(async (post) => {
+        console.log("post for commenting was brought", post.data());
+        newComment(post, id, author);
+      });
+  };
+
+  const newComment = (post, id, author, comment) => {
+    firestore
+      .doc(`posts/${id}`)
+      .update({
+        comments: firebase.firestore.FieldValue.arrayUnion(author.uid),
+      })
+      .then(() => {
+        console.log("the likes for this post has been successfully updated");
+      })
+      .catch((error) =>
+        console.error(
+          "some error has occured on liking/disliking the post",
+          error.message
+        )
+      );
+  };
+
+  const likeComment = (id) => {
+    console.log("the liked post is =>", id);
+
+    firestore
+      .collection(`comments`)
+      .doc(id)
+      .get()
+      .then((comment) => {
+        console.log("se trajo el comment de referencia", comment.data());
+        updateCommentLike(comment, id, author);
+      });
+  };
+
+  const updateCommentLike = (comment, id, author) => {
+    const isInArray = comment?.data().likes?.includes(author.uid);
+    firestore
+      .doc(`comments/${id}`)
+      .update({
+        ...(isInArray && {
+          likes: firebase.firestore.FieldValue.arrayRemove(author.uid),
+        }),
+        ...(!isInArray && {
+          likes: firebase.firestore.FieldValue.arrayUnion(author.uid),
+        }),
+      })
+      .then(() => {
+        console.log("the likes for this post has been successfully updated");
+      })
+      .catch((error) =>
+        console.error(
+          "some error has occured on liking/disliking the post",
+          error.message
+        )
+      );
+  };
+
   return (
     <div className="font-face-silk">
       <main className="logged-in-main">
         <CreatePost setPostAuthor={setPostAuthor} getPosts={getPosts} />
+        <button onClick={() => setFilterFavourites(!filterFavourites)}>
+          Show favourites!
+        </button>
 
         <section className="logged-in-section">
           {posts?.map((post) => {
-            return (
-              <PostCard
-                key={post.postID}
-                id={post.postID}
-                message={post.message}
-                createdOn={post.createdOn}
-                updatedOn={post.updatedOn}
-                likes={post.likes}
-                erasePost={erasePost}
-                likePost={likePost}
-                setEdit={setEdit}
-                edit={edit}
-                post={post}
-                author={author}
-                isLiked={isLiked}
-                setIsLiked={setIsLiked}
-              />
-            );
+            if (filterFavourites) {
+              if (post?.likes.includes(author.uid)) {
+                return (
+                  <PostCard
+                    key={post.postID}
+                    id={post.postID}
+                    message={post.message}
+                    createdOn={post.createdOn}
+                    updatedOn={post.updatedOn}
+                    likes={post.likes}
+                    erasePost={erasePost}
+                    likePost={likePost}
+                    setEdit={setEdit}
+                    edit={edit}
+                    post={post}
+                    author={author}
+                    commentPost={commentPost}
+                    likeComment={likeComment}
+                    eraseComment={eraseComment}
+                    comments={comments}
+                    getComments={getComments}
+                  />
+                );
+              }
+            } else {
+              return (
+                <PostCard
+                  key={post.postID}
+                  id={post.postID}
+                  message={post.message}
+                  createdOn={post.createdOn}
+                  updatedOn={post.updatedOn}
+                  likes={post.likes}
+                  erasePost={erasePost}
+                  likePost={likePost}
+                  setEdit={setEdit}
+                  edit={edit}
+                  post={post}
+                  author={author}
+                  commentPost={commentPost}
+                  likeComment={likeComment}
+                  eraseComment={eraseComment}
+                  comments={comments}
+                  getComments={getComments}
+                />
+              );
+            }
           })}
         </section>
       </main>

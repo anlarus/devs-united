@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import firebase, { firestore, storage } from "../../firebase";
-import Avatar from "../../assets/images/avatarMusic.png";
+import firebase, { firestore, storage } from "../../../firebase";
+import Avatar from "../../../assets/images/avatarMusic.png";
 import "./CreatePost.css";
-import { useUserAreaContext } from "../../providers/UserAreaProvider";
+import { useUserAreaContext } from "../../../providers/UserAreaProvider";
 
 const CreatePost = ({ getPosts }) => {
   const [post, setPost] = useState({
@@ -12,10 +12,11 @@ const CreatePost = ({ getPosts }) => {
     createdOn: "",
     updatedOn: "",
     likes: [],
+    comments: []
   });
   const [author] = useUserAreaContext();
   const [image, setImage] = useState("");
-  const [edit, setEdit] = useState(false);
+
   const [file, setFile] = useState({});
   const [progress, setProgress] = useState(0);
 
@@ -35,7 +36,7 @@ const CreatePost = ({ getPosts }) => {
   };
 
   const handleUploadImage = (event) => {
-    addImage(event.target.files[0])
+    addImage(event.target.files[0]);
   };
 
   const createPost = (event) => {
@@ -75,9 +76,8 @@ const CreatePost = ({ getPosts }) => {
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then((url) => {
           console.log("URL of image is =>", url);
-          setImage(url)
-          setIsUploaded(false)
-
+          setImage(url);
+          setIsUploaded(false);
         });
       }
     );
@@ -126,7 +126,12 @@ const CreatePost = ({ getPosts }) => {
             max="100"
             value={progress}
           ></progress>
-          <input className="font-face-silk" type="submit" value="post" disabled = {isUploaded}/>
+          <input
+            className="font-face-silk"
+            type="submit"
+            value="post"
+            disabled={isUploaded}
+          />
         </form>
       </section>
     </>

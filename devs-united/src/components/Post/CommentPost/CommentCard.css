@@ -1,0 +1,75 @@
+.username-clickable-comment {
+    border: none;
+    display: inline;
+    padding: 0 5px;
+    line-height: 32px;
+   /* background-color: rgb(128, 15, 255); */
+    font-size: 80%;
+    margin: 3px 0;
+    color:white;
+  }
+  
+  .redHeart {
+    color: rgb(245, 13, 90);
+  }
+  
+ 
+  
+  .comment-box {
+    width: 100%;
+    font-size: 80%;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: 5px;
+  }
+  
+  .comment-first-line {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+  
+  
+  .comment-footer {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+
+  
+  .like,
+  .dislike, .erase {
+    width: 20px;
+    margin: 0 10px;
+  }
+  
+  span {
+    display: inline-block;
+
+  }
+  
+  .username-clickable-comment.red {
+    background-color: rgb(245, 13, 90);
+  }
+  .username-clickable-comment.orange {
+    background-color: rgb(255, 134, 92);
+  }
+  .username-clickable-comment.yellow {
+    background-color: rgb(255, 234, 92);
+    color: rgb(48, 9, 48)
+  }
+  .username-clickable.green {
+    background-color: rgb(0, 218, 118);
+  }
+  .username-clickable-comment.blue {
+    background-color: rgb(0, 150, 206);
+  }
+  
+  .username-clickable-comment.violet {
+    background-color: rgb(128, 15, 255);
+  }
+  
+  

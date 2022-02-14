@@ -3,7 +3,6 @@ import "./GoogleButton.css";
 
 export const GoogleButton = ({ enter }) => {
   const responseGoogle = (response) => {
-    console.log(response.profileObj);
   };
 
   return (

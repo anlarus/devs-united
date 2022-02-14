@@ -1,9 +1,17 @@
-import { FaFeather, FaHeart, FaRegHeart, FaTrashAlt } from "react-icons/fa";
+import {
+  FaFeather,
+  FaHeart,
+  FaRegHeart,
+  FaTrashAlt,
+  FaCommentDots,
+} from "react-icons/fa";
 import Avatar3 from "../../../assets/images/avatarGardener.png";
 import "./PostCard.css";
 import { Edit } from "../EditPost/Edit";
 import firebase, { firestore, storage, auth, signOut } from "../../../firebase";
 import { useEffect, useState } from "react";
+import { CommentCard } from "../CommentPost/CommentCard";
+import CreateComment from "../CommentPost/CreateComment";
 
 export const PostCard = ({
   message,
@@ -14,23 +22,24 @@ export const PostCard = ({
   likePost,
   post,
   author,
-  isLiked,
   edit,
   setEdit,
+  commentPost,
+  eraseComment,
+  likeComment,
+  comments,
+  getComments,
 }) => {
   const [edittedMessage, setEdittedMessage] = useState("");
+  const [commentOnPost, setCommentOnPost] = useState(false);
 
-  console.log("post enter inside post card as=>", post);
+  {
+    console.log(comments);
+  }
 
-  console.log("post COLOR enter inside post card as=>", post.authorColor);
+  // console.log("post enter inside post card as=>", post);
 
-  console.log("post ID en post card", id);
-
-  console.log("image url en post card", post.imageURL);
-
-  console.log("post created en post card", createdOn);
-
-  console.log("author enter inside post card as=>", author);
+  // console.log("author enter inside post card as=>", author);
 
   const postCreated = new Date(createdOn).toLocaleString("en-GB", {
     year: "numeric",
@@ -102,6 +111,20 @@ export const PostCard = ({
         handleMessage={handleMessage}
         post={post}
         editPost={editPost}
+        edit={edit}
+        setEdit={setEdit}
+      />
+    );
+  }
+
+  if (commentOnPost) {
+    return (
+      <CreateComment
+        id={id}
+        post={post}
+        commentOnPost={commentOnPost}
+        getComments={getComments}
+        setCommentOnPost={setCommentOnPost}
       />
     );
   }
@@ -123,15 +146,17 @@ export const PostCard = ({
             </button>
             - created: {postCreated}
           </div>
-          <div className="erase" onClick={(event) => erasePost(id)}>
-            <FaTrashAlt />
-          </div>
+          {author.uid == post.author && (
+            <div className="erase" onClick={() => erasePost(id)}>
+              <FaTrashAlt />
+            </div>
+          )}
         </div>
         <div>{message}</div>
 
         <div className="post-footer">
           <div className="post-footer-like">
-            {isLiked ? (
+            {post.likes.includes(author.uid) ? (
               <FaHeart
                 className="redHeart"
                 onClick={() => likePost(id, author)}
@@ -143,14 +168,40 @@ export const PostCard = ({
           <div className="post-footer-likes">
             <span>{post.likes.length}</span>
           </div>
-          {postUpdated && (
+          {updatedOn && (
             <span className="user-info-cover"> - updated: {postUpdated} </span>
           )}
 
-          <div className="erase">
-            <FaFeather onClick={() => setEdit(!edit)} />
+          {author.uid == post.author && (
+            <div className="erase" onClick={() => setEdit(!edit)}>
+              <FaFeather />
+            </div>
+          )}
+          <div
+            className="erase"
+            onClick={() => setCommentOnPost(!commentOnPost)}
+          >
+            <FaCommentDots />
           </div>
         </div>
+
+        {comments?.map((comment) => {
+          if(comment?.referenceToPost == id ){return (
+            <CommentCard
+              key={comment.id}
+              id={id}
+              message={comment.message}
+              createdOn={comment.createdOn}
+              likes={comment.likes}
+              referenceToPost={comment.referenceToPost}
+              eraseComment={eraseComment}
+              likeComment={likeComment}
+              comment={comment}
+              author={author}
+              commentPost={commentPost}
+            />
+          );}
+        })}
       </div>
     </div>
   );

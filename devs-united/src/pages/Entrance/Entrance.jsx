@@ -40,8 +40,7 @@ const Entrance = () => {
       .createUserWithEmailAndPassword(email, password)
       .then(async (userCredential) => {
         setAuthor(userCredential.user);
-        //imprimimos el objeto que devuelve auth para suscribir bien sus campos segun la orden
-        //destructuramos el objeto para acceder a sus valores
+
         const { email, uid } = userCredential.user;
 
         firestore
