@@ -14,11 +14,13 @@ const LoggedIn = () => {
   const [author, setAuthor] = useUserAreaContext();
   const [postAuthor, setPostAuthor] = useState();
   const [file, setFile] = useState({});
-  const [edit, setEdit] = useState(false);
+
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
   const likes = [];
   const [filterFavourites, setFilterFavourites] = useState(false);
+  const [nameToFilter, setNameToFilter] = useState("");
+  const [filterByName, setFilterByName] = useState(false);
 
   console.log("from logged in", author);
 
@@ -242,6 +244,8 @@ const LoggedIn = () => {
               if (post?.likes.includes(author.uid)) {
                 return (
                   <PostCard
+                    filterByName={filterByName}
+                    setFilterByName={setFilterByName}
                     key={post.postID}
                     id={post.postID}
                     message={post.message}
@@ -250,8 +254,32 @@ const LoggedIn = () => {
                     likes={post.likes}
                     erasePost={erasePost}
                     likePost={likePost}
-                    setEdit={setEdit}
-                    edit={edit}
+                    post={post}
+                    author={author}
+                    commentPost={commentPost}
+                    likeComment={likeComment}
+                    eraseComment={eraseComment}
+                    comments={comments}
+                    getComments={getComments}
+                  />
+                );
+              }
+            } else if (filterByName) {
+              if (post?.authorName == nameToFilter) {
+                return (
+                  <PostCard
+                    filterByName={filterByName}
+                    setFilterByName={setFilterByName}
+                    nameToFilter={nameToFilter}
+                    setNameToFilter={setNameToFilter}
+                    key={post.postID}
+                    id={post.postID}
+                    message={post.message}
+                    createdOn={post.createdOn}
+                    updatedOn={post.updatedOn}
+                    likes={post.likes}
+                    erasePost={erasePost}
+                    likePost={likePost}
                     post={post}
                     author={author}
                     commentPost={commentPost}
@@ -265,6 +293,8 @@ const LoggedIn = () => {
             } else {
               return (
                 <PostCard
+                  filterByName={filterByName}
+                  setFilterByName={setFilterByName}
                   key={post.postID}
                   id={post.postID}
                   message={post.message}
@@ -273,8 +303,6 @@ const LoggedIn = () => {
                   likes={post.likes}
                   erasePost={erasePost}
                   likePost={likePost}
-                  setEdit={setEdit}
-                  edit={edit}
                   post={post}
                   author={author}
                   commentPost={commentPost}

@@ -14,6 +14,7 @@ export const SignUpInput = ({
   setAvatar,
   avatar,
   signUp,
+  signInWithGoogle,
 }) => {
   const handleInput = (event) => {
     setBody({ ...body, [event.target.name]: event.target.value });
@@ -23,7 +24,7 @@ export const SignUpInput = ({
     <>
       <ColorLine setAuthorColor={setAuthorColor} />
       <AvatarLine setAvatar={setAvatar} />
-      <GoogleButton enter={enter} />
+      <GoogleButton enter={enter} signInWithGoogle={signInWithGoogle} />
       <p className="font-face-fira">or sign up with your email</p>
       <input
         name="displayName"
@@ -59,7 +60,13 @@ export const SignUpInput = ({
   );
 };
 
-export const SignInInput = ({ body, setBody, enter, signIn }) => {
+export const SignInInput = ({
+  body,
+  setBody,
+  enter,
+  signIn,
+  signInWithGoogle,
+}) => {
   const handleInput = (event) => {
     let { name, value } = event.target;
     setBody({ ...body, [name]: value });
@@ -68,7 +75,7 @@ export const SignInInput = ({ body, setBody, enter, signIn }) => {
   return (
     <>
       {" "}
-      <GoogleButton enter={enter} />
+      <GoogleButton enter={enter} signInWithGoogle={signInWithGoogle} />
       <p className="font-face-fira">or sign in with your email</p>
       <input
         type="email"

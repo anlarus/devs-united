@@ -3,6 +3,7 @@ import firebase, { firestore, storage } from "../../firebase";
 import Avatar from "../../assets/images/avatarMusic.png";
 import "./CreatePost.css";
 import { useUserAreaContext } from "../../providers/UserAreaProvider";
+import styledComponents from "styled-components";
 
 const CreatePost = ({ getPosts }) => {
   const [post, setPost] = useState({
@@ -16,7 +17,7 @@ const CreatePost = ({ getPosts }) => {
   const [author] = useUserAreaContext();
   const [image, setImage] = useState("");
   const [edit, setEdit] = useState(false);
-  const [file, setFile] = useState({});
+  const [done, setDone] = useState(false);
   const [progress, setProgress] = useState(0);
 
   const [isUploaded, setIsUploaded] = useState(false);
@@ -49,6 +50,7 @@ const CreatePost = ({ getPosts }) => {
         console.log(`post sucess =>`, postRef);
         // addImage(post.image, postRef.id);
         getPosts();
+        setDone(!done)
       })
       .catch((err) => console.error(err.message));
   };
@@ -98,7 +100,7 @@ const CreatePost = ({ getPosts }) => {
                 placeholder="What´s happening?"
                 maxLength="200"
                 onChange={handleOnchange}
-                value={post.message}
+                value={!done? post.message : ""}
               ></textarea>
               <progress max="100" value={post.message.length}></progress>
               <div className="message-footer">

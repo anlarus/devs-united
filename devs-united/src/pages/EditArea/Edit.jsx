@@ -8,7 +8,7 @@ import { useEditAreaContext } from "../../providers/EditAreaProvider";
 export const Edit = () => {
 
   //const { id } = useParams();
-  const [edit, setEdit, post, id, edittedMessage, setEdittedMessage] = useEditAreaContext();
+  const [setEdit, post, id, edittedMessage, setEdittedMessage] = useEditAreaContext();
 
  
   const editPost = () => {
@@ -23,7 +23,7 @@ export const Edit = () => {
       })
       .then(() => {
         console.log("post modified successfully");
-        setEdit(!edit);
+        // setEdit(!edit);
       })
       .catch((err) =>
         console.error("error during editting the post", err.message)

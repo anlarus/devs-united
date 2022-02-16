@@ -8,7 +8,7 @@ import {
 import Avatar3 from "../../../assets/images/avatarGardener.png";
 import "./PostCard.css";
 import { Edit } from "../EditPost/Edit";
-import firebase, { firestore, storage, auth, signOut } from "../../../firebase";
+import firebase, { firestore } from "../../../firebase";
 import { useEffect, useState } from "react";
 import { CommentCard } from "../CommentPost/CommentCard";
 import CreateComment from "../CommentPost/CreateComment";
@@ -22,16 +22,19 @@ export const PostCard = ({
   likePost,
   post,
   author,
-  edit,
-  setEdit,
   commentPost,
   eraseComment,
   likeComment,
   comments,
   getComments,
+  filterByName,
+  setFilterByName,
+  nameToFilter,
+  setNameToFilter,
 }) => {
   const [edittedMessage, setEdittedMessage] = useState("");
   const [commentOnPost, setCommentOnPost] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   {
     console.log(comments);
@@ -57,7 +60,7 @@ export const PostCard = ({
     minute: "numeric",
   });
 
-  const editPost = () => {
+  const editPost = (id) => {
     console.log("the editted message is =>", edittedMessage);
 
     firestore
@@ -74,6 +77,12 @@ export const PostCard = ({
       .catch((err) =>
         console.error("error during editting the post", err.message)
       );
+  };
+
+  const onEditHandler = (id) => {
+    setEdit(!edit);
+
+    console.log(id);
   };
 
   useEffect(() => {
@@ -99,23 +108,6 @@ export const PostCard = ({
   const handleMessage = (e) => {
     setEdittedMessage(e.target.value);
   };
-
-  if (edit) {
-    return (
-      <Edit
-        id={id}
-        postCreated={postCreated}
-        postUpdated={postUpdated}
-        setEdit={setEdit}
-        edit={edit}
-        handleMessage={handleMessage}
-        post={post}
-        editPost={editPost}
-        edit={edit}
-        setEdit={setEdit}
-      />
-    );
-  }
 
   if (commentOnPost) {
     return (
@@ -152,8 +144,20 @@ export const PostCard = ({
             </div>
           )}
         </div>
-        <div>{message}</div>
 
+        {edit ? (
+          <Edit
+            id={id}
+            postCreated={postCreated}
+            postUpdated={postUpdated}
+            setEdit={setEdit}
+            handleMessage={handleMessage}
+            post={post}
+            editPost={editPost}
+          />
+        ) : (
+          <div>{message}</div>
+        )}
         <div className="post-footer">
           <div className="post-footer-like">
             {post.likes.includes(author.uid) ? (
@@ -173,7 +177,7 @@ export const PostCard = ({
           )}
 
           {author.uid == post.author && (
-            <div className="erase" onClick={() => setEdit(!edit)}>
+            <div className="erase" onClick={() => onEditHandler(id)}>
               <FaFeather />
             </div>
           )}
@@ -186,21 +190,23 @@ export const PostCard = ({
         </div>
 
         {comments?.map((comment) => {
-          if(comment?.referenceToPost == id ){return (
-            <CommentCard
-              key={comment.id}
-              id={id}
-              message={comment.message}
-              createdOn={comment.createdOn}
-              likes={comment.likes}
-              referenceToPost={comment.referenceToPost}
-              eraseComment={eraseComment}
-              likeComment={likeComment}
-              comment={comment}
-              author={author}
-              commentPost={commentPost}
-            />
-          );}
+          if (comment?.referenceToPost == id) {
+            return (
+              <CommentCard
+                key={comment.id}
+                id={id}
+                message={comment.message}
+                createdOn={comment.createdOn}
+                likes={comment.likes}
+                referenceToPost={comment.referenceToPost}
+                eraseComment={eraseComment}
+                likeComment={likeComment}
+                comment={comment}
+                author={author}
+                commentPost={commentPost}
+              />
+            );
+          }
         })}
       </div>
     </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Entrance.css";
 import DevsBigLogo from "../../utils/DevsBigLogo.jsx";
 import ColorLine from "../../components/ColorLine/ColorLine.jsx";
-import firebase, { auth, firestore, storage } from "../../firebase";
+import firebase, { auth, firestore, storage, provider } from "../../firebase";
 import { useStyle } from "../../providers/StyleProvider";
 import { SignUpInput, SignInInput } from "../../components/UserArea/UserInput";
 import GoogleLogin from "react-google-login";
@@ -22,14 +22,56 @@ const Entrance = () => {
     console.log("author in the entrance =>", auth.currentUser);
   }, []);
 
-  const signInWithGoogle = (response) => {
+  // const signInWithGoogle = (response) => {
+  //   const { displayName, email, uid, photoURL } = response.profileObj;
+  //   setAuthor({
+  //     displayName,
+  //     email,
+  //     uid,
+  //     photoURL,
+  //   });
+  // };
+
+  const signInWithGoogle = async (response) => {
     const { displayName, email, uid, photoURL } = response.profileObj;
-    setAuthor({
-      displayName,
-      email,
-      uid,
-      photoURL,
-    });
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        let db = firebase.firestore();
+        db.collection("authors")
+          .doc(uid)
+          .get()
+          .then(async (doc) => {
+            if (doc.exists) {
+              setAuthor(doc);
+            } else {
+              db.collection("authors")
+                .doc(user.uid)
+                .set({
+                  avatar: photoURL || avatar,
+                  email: email,
+                  uid: uid,
+                  authorColor: authorColor,
+                  displayName: displayName,
+                });
+              const user = await getAuthor(uid);
+              setAuthor(user);
+            }
+          });
+        // ...
+      })
+      .catch(function (error) {
+        // Handle Errors here.
+   console.log("some error occured on google API =>", error.message)
+        // ...
+      })
+      .finally(setReg(!reg));
   };
 
   const signUp = (event) => {
@@ -43,29 +85,22 @@ const Entrance = () => {
 
         const { email, uid } = userCredential.user;
 
-        firestore
-          .collection("authors")
-          .doc(uid)
-          .set({
-            avatar: avatar,
-            email: email,
-            uid: uid,
-            authorColor: authorColor,
-            displayName: displayName,
-            posts: [],
-          });
+        firestore.collection("authors").doc(uid).set({
+          avatar: avatar,
+          email: email,
+          uid: uid,
+          authorColor: authorColor,
+          displayName: displayName,
+        });
 
-          const user = await getAuthor(uid);
+        const user = await getAuthor(uid);
 
-          setAuthor(user);
-
+        setAuthor(user);
       })
       .catch((error) => {
         console.error(error.message);
       })
-      .finally(
-
-        setReg(!reg));
+      .finally(setReg(!reg));
   };
 
   const signIn = (event) => {
@@ -90,8 +125,6 @@ const Entrance = () => {
       })
       .finally(setReg(!reg));
   };
-
- 
 
   const registerHandler = () => {
     setReg(!reg);
