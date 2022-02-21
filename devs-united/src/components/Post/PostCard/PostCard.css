@@ -3,24 +3,23 @@
   display: inline;
   padding: 0 10px;
   line-height: 32px;
- /* background-color: rgb(128, 15, 255); */
   font-size: 18px;
   margin: 5px 0;
-  color:white;
+  color: white;
 }
 
 .redHeart {
   color: rgb(245, 13, 90);
 }
 
-.post-cover {
+.post-wrapper {
   border-top: solid 2px rgb(96, 38, 91);
   background-color: rgb(46, 19, 44);
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 5px 15px;
+  flex-flow: column nowrap;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 5px 5px;
   margin: 0;
   width: 100%;
   color: white;
@@ -33,35 +32,48 @@
   align-items: justify;
   justify-content: space-between;
   padding: 10px;
+  background-color: rgb(31, 10, 29);
 }
 
-.post-first-line {
+.post-message {
+  background-color: rgb(117, 63, 113);
+  padding: 5 px;
+  width: 100%;
+}
+
+.post-header {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: space-evenly;
   align-items: center;
 }
 
-.user-info-cover {
-  max-width: 50%;
+.post-icon {
+  width: 25px;
 }
 
-.erase {
-  max-width:10%;
+.post-image-box {
+  width: 95%;
 }
 
-.post-avatar {
-  width: 50px;
+.post-image-box img {
+  width: 90%;
+}
+
+.post-header-avatar {
   height: 50px;
-  background-color: rgb(145, 77, 139);
+  width: 50px;
+  background-color: rgb(37,12,35);
   border-radius: 50%;
   margin: 10px 5px;
+  border: solid rgb(255, 234, 92) 1px;
 }
 
-.post-avatar img {
+.post-header-avatar img {
   display: inline-block;
-  max-width: 100%;
-  max-height: 100%;
+  max-height: 95%;
+  max-width: 95%;
 }
 
 .post-footer {
@@ -77,11 +89,11 @@
 }
 
 .like,
-.dislike, .erase {
+.dislike,
+.erase {
   width: 20px;
   margin: 0 10px;
 }
-
 
 .username-clickable.red {
   background-color: rgb(245, 13, 90);
@@ -91,6 +103,7 @@
 }
 .username-clickable.yellow {
   background-color: rgb(255, 234, 92);
+  color: rgb(31, 10, 29);
 }
 .username-clickable.green {
   background-color: rgb(0, 218, 118);
@@ -102,4 +115,3 @@
 .username-clickable.violet {
   background-color: rgb(128, 15, 255);
 }
-

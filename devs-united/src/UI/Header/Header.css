@@ -25,12 +25,16 @@ header {
 
 .small-avatar-box img {
   display: inline-block;
-  max-width: 52px;
+  max-height: 95%;
 }
 
 .header-img-container img {
   max-height: 35px;
   
+}
+
+.header-img-container {
+ width: 30%;
 }
 
 .sign-out {
@@ -43,4 +47,31 @@ header {
   border: none;
   border-radius: 5px;
   padding: 3px;
+}
+
+
+@media screen and (max-width: 900px) {
+  .sign-out {
+    background-color: rgb(0, 218, 118);
+    width: 10%;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    padding: 3px;
+  }
+  .small-avatar-box {
+    display: none;
+  }
+
+  .header-img-container {
+    width: 200px;
+   }
+
+   .header-img-container img {
+     max-width: 100%;
+   }
+   
 }

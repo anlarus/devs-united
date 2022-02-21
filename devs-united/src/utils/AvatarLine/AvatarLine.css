@@ -1,31 +1,33 @@
-.color-cover {
+.avatar-cover {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
     margin: 37px auto;
     width: 75%;
+    height: 150px;
   }
   
-  .color-box {
-    height: 35px;
-    width: 35px;
+  .avatar-box {
+    height: 45%;
+    width: 15%;
   }
   
-  .color-box:active {
+  .avatar-box:active {
     transform: scale(0.95);
   }
-  .color-box:checked {
+  .avatar-box:checked {
     box-sizing: content-box;
     border: solid white 3px;
   }
   
-  .color-box:hover {
+  .avatar-box:hover {
     opacity: 0.7;
+    border: solid white 1px;
   }
 
-  .color-box img {
-      width: 100%;
+  .avatar-box img {
+      height: 100%;
   }
   
   .font-face-silk {

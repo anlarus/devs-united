@@ -10,7 +10,7 @@ import "./PostCard.css";
 import { Edit } from "../EditPost/Edit";
 import firebase, { firestore } from "../../../firebase";
 import { useEffect, useState } from "react";
-import { CommentCard } from "../CommentPost/CommentCard";
+import { CommentCard } from "../CommentPost/CommentCard.jsx";
 import CreateComment from "../CommentPost/CreateComment";
 
 export const PostCard = ({
@@ -27,8 +27,6 @@ export const PostCard = ({
   likeComment,
   comments,
   getComments,
-  filterByName,
-  setFilterByName,
   nameToFilter,
   setNameToFilter,
 }) => {
@@ -39,10 +37,6 @@ export const PostCard = ({
   {
     console.log(comments);
   }
-
-  // console.log("post enter inside post card as=>", post);
-
-  // console.log("author enter inside post card as=>", author);
 
   const postCreated = new Date(createdOn).toLocaleString("en-GB", {
     year: "numeric",
@@ -61,8 +55,6 @@ export const PostCard = ({
   });
 
   const editPost = (id) => {
-    console.log("the editted message is =>", edittedMessage);
-
     firestore
       .collection("posts")
       .doc(id)
@@ -81,13 +73,9 @@ export const PostCard = ({
 
   const onEditHandler = (id) => {
     setEdit(!edit);
-
-    console.log(id);
   };
 
   useEffect(() => {
-    console.log("from edit post - it´s id", id);
-
     firestore
       .collection("posts")
       .doc(id)
@@ -109,44 +97,39 @@ export const PostCard = ({
     setEdittedMessage(e.target.value);
   };
 
-  if (commentOnPost) {
-    return (
-      <CreateComment
-        id={id}
-        post={post}
-        commentOnPost={commentOnPost}
-        getComments={getComments}
-        setCommentOnPost={setCommentOnPost}
-      />
-    );
-  }
-
   return (
-    <div className="post-cover">
-      <div className="post-avatar">
-        <img src={post.avatar || Avatar3} alt="avatar profile image" />
-        {post.imageURL && <img src={post.imageURL} alt="post attach" />}
-      </div>
-
-      <div className="post-box font-face-fira">
-        <div className="post-first-line">
-          <div className="user-info-cover">
+    <div className="post-wrapper">
+      <div className="post-header">
+        <div className="post-header-avatar">
+          <img src={post.avatar || Avatar3} alt="author's avatar" />
+        </div>
+        
+          <div className="post-header-box">
+            {" "}
             <button
               className={`font-face-silk username-clickable ${post.authorColor}`}
             >
               {post.authorName}
             </button>
-            - created: {postCreated}
           </div>
-          {author.uid == post.author && (
-            <div className="erase" onClick={() => erasePost(id)}>
-              <FaTrashAlt />
-            </div>
-          )}
+          <div className="post-header-box">
+            {" "}
+            <span>- created: {postCreated}</span>
+          </div>
+        <div
+          className="post-header-icon"
+          onClick={() => setCommentOnPost(!commentOnPost)}
+        >
+          {!commentOnPost && <FaCommentDots />}
         </div>
+      </div>
+
+      <div className="post-box font-face-fira">
+        <div className="post-first-line"></div>
 
         {edit ? (
           <Edit
+            edit={edit}
             id={id}
             postCreated={postCreated}
             postUpdated={postUpdated}
@@ -156,9 +139,9 @@ export const PostCard = ({
             editPost={editPost}
           />
         ) : (
-          <div>{message}</div>
+          <div className="post-message">{message}</div>
         )}
-        <div className="post-footer">
+        {!edit && (<div className="post-footer">
           <div className="post-footer-like">
             {post.likes.includes(author.uid) ? (
               <FaHeart
@@ -167,28 +150,40 @@ export const PostCard = ({
               />
             ) : (
               <FaRegHeart onClick={() => likePost(id, author)} />
-            )}
+            )}  <span> {post.likes.length}</span>
           </div>
-          <div className="post-footer-likes">
-            <span>{post.likes.length}</span>
-          </div>
+         
           {updatedOn && (
             <span className="user-info-cover"> - updated: {postUpdated} </span>
           )}
 
-          {author.uid == post.author && (
-            <div className="erase" onClick={() => onEditHandler(id)}>
+          {author.uid == post.author && !edit && (
+            <div className="post-icon" onClick={() => onEditHandler(id)}>
               <FaFeather />
             </div>
           )}
-          <div
-            className="erase"
-            onClick={() => setCommentOnPost(!commentOnPost)}
-          >
-            <FaCommentDots />
-          </div>
-        </div>
 
+          {author.uid == post.author && (
+            <div className="post-icon" onClick={() => erasePost(id)}>
+              <FaTrashAlt />
+            </div>
+          )}
+        </div>)}
+
+        <div className="post-image-box">
+          {post.imageURL && <img src={post.imageURL} alt="post attach" />}
+        </div>
+      </div>
+      {commentOnPost && (
+        <CreateComment
+          id={id}
+          post={post}
+          commentOnPost={commentOnPost}
+          getComments={getComments}
+          setCommentOnPost={setCommentOnPost}
+        />
+      )}
+      <div className="comments-collection">
         {comments?.map((comment) => {
           if (comment?.referenceToPost == id) {
             return (

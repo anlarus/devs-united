@@ -100,7 +100,7 @@ const CreatePost = ({ getPosts }) => {
                 onChange={handleOnchange}
                 value={post.message}
               ></textarea>
-              <progress max="100" value={post.message.length}></progress>
+              <progress value={post.message.length}></progress>
               <div className="message-footer">
                 <div className="message-footer-middle">
                   <span>{post.message.length}</span>

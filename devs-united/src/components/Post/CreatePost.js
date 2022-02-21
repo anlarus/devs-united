@@ -51,8 +51,9 @@ const CreatePost = ({ getPosts }) => {
         // addImage(post.image, postRef.id);
         getPosts();
         setDone(!done)
+       
       })
-      .catch((err) => console.error(err.message));
+      .catch((err) => console.error(err.message)).finally( setProgress(0));
   };
 
   const addImage = (image, postID) => {
@@ -79,6 +80,7 @@ const CreatePost = ({ getPosts }) => {
           console.log("URL of image is =>", url);
           setImage(url)
           setIsUploaded(false)
+          
 
         });
       }

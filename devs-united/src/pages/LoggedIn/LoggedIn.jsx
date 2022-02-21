@@ -2,7 +2,9 @@ import "./LoggedIn.css";
 import CreatePost from "../../components/Post/CreatePost";
 import { PostCard } from "../../components/Post/PostCard/PostCard";
 import firebase, { firestore, storage, auth, signOut } from "../../firebase";
-import userEvent from "@testing-library/user-event";
+import {
+  FaStar
+} from "react-icons/fa";
 import { useStyle } from "../../providers/StyleProvider";
 import React, { useState, useEffect, useRef } from "react";
 import { useUserAreaContext } from "../../providers/UserAreaProvider";
@@ -13,14 +15,11 @@ const LoggedIn = () => {
   } = useStyle();
   const [author, setAuthor] = useUserAreaContext();
   const [postAuthor, setPostAuthor] = useState();
-  const [file, setFile] = useState({});
 
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
-  const likes = [];
   const [filterFavourites, setFilterFavourites] = useState(false);
-  const [nameToFilter, setNameToFilter] = useState("");
-  const [filterByName, setFilterByName] = useState(false);
+  const [nameToFilter, setNameToFilter] = useState(false);
 
   console.log("from logged in", author);
 
@@ -118,7 +117,7 @@ const LoggedIn = () => {
       .doc(commentID)
       .delete()
       .then((comment) => {
-        console.log("se elimino el comment de referencia");
+        console.log("the comment was deleted successfully", comment);
       })
       .catch((error) =>
         console.error(
@@ -129,14 +128,12 @@ const LoggedIn = () => {
   };
 
   const likePost = (id) => {
-    console.log("the liked post is =>", id);
-
-    firestore
+       firestore
       .collection(`posts`)
       .doc(id)
       .get()
       .then(async (post) => {
-        console.log("se trajo el post de referencia", post.data());
+      
         updateLike(post, id, author);
       });
   };
@@ -165,15 +162,12 @@ const LoggedIn = () => {
   };
 
   const commentPost = (id) => {
-    console.log("the post to comment is =>", id);
-
-    firestore
+       firestore
       .collection(`posts`)
       .doc(id)
       .get()
       .then(async (post) => {
-        console.log("post for commenting was brought", post.data());
-        newComment(post, id, author);
+          newComment(post, id, author);
       });
   };
 
@@ -234,42 +228,17 @@ const LoggedIn = () => {
     <div className="font-face-silk">
       <main className="logged-in-main">
         <CreatePost setPostAuthor={setPostAuthor} getPosts={getPosts} />
-        <button onClick={() => setFilterFavourites(!filterFavourites)}>
-          Show favourites!
-        </button>
+       
 
         <section className="logged-in-section">
+        <button className="fav-button" onClick={() => setFilterFavourites(!filterFavourites)}>
+          Show favourites! <FaStar/>
+        </button>
           {posts?.map((post) => {
             if (filterFavourites) {
               if (post?.likes.includes(author.uid)) {
                 return (
                   <PostCard
-                    filterByName={filterByName}
-                    setFilterByName={setFilterByName}
-                    key={post.postID}
-                    id={post.postID}
-                    message={post.message}
-                    createdOn={post.createdOn}
-                    updatedOn={post.updatedOn}
-                    likes={post.likes}
-                    erasePost={erasePost}
-                    likePost={likePost}
-                    post={post}
-                    author={author}
-                    commentPost={commentPost}
-                    likeComment={likeComment}
-                    eraseComment={eraseComment}
-                    comments={comments}
-                    getComments={getComments}
-                  />
-                );
-              }
-            } else if (filterByName) {
-              if (post?.authorName == nameToFilter) {
-                return (
-                  <PostCard
-                    filterByName={filterByName}
-                    setFilterByName={setFilterByName}
                     nameToFilter={nameToFilter}
                     setNameToFilter={setNameToFilter}
                     key={post.postID}
@@ -290,11 +259,37 @@ const LoggedIn = () => {
                   />
                 );
               }
-            } else {
+            }
+            //else if (nameToFilter) {
+            //   if (post?.authorName == nameToFilter) {
+            //     return (
+            //       <PostCard
+            //         nameToFilter={nameToFilter}
+            //         setNameToFilter={setNameToFilter}
+            //         key={post.postID}
+            //         id={post.postID}
+            //         message={post.message}
+            //         createdOn={post.createdOn}
+            //         updatedOn={post.updatedOn}
+            //         likes={post.likes}
+            //         erasePost={erasePost}
+            //         likePost={likePost}
+            //         post={post}
+            //         author={author}
+            //         commentPost={commentPost}
+            //         likeComment={likeComment}
+            //         eraseComment={eraseComment}
+            //         comments={comments}
+            //         getComments={getComments}
+            //       />
+            //     );
+            //   }
+            // }
+            else {
               return (
                 <PostCard
-                  filterByName={filterByName}
-                  setFilterByName={setFilterByName}
+                  nameToFilter={nameToFilter}
+                  setNameToFilter={setNameToFilter}
                   key={post.postID}
                   id={post.postID}
                   message={post.message}

@@ -1,48 +1,35 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { FaSdCard, FaBackward } from "react-icons/fa";
-import firebase, { firestore, storage, auth, signOut } from "../../../firebase";
-import Avatar from "../../../assets/images/Girl&Skateboard.png";
+import "./Edit.css";
 
-export const Edit = ({ id, postCreated, postUpdated, editPost, handleMessage, post, edittedMessage, setEdit, edit }) => {
-
-  //const { id } = useParams();
- 
-
+export const Edit = ({
+  id,
+  editPost,
+  handleMessage,
+  edittedMessage,
+  setEdit,
+  edit,
+}) => {
   return (
-    <>
-      <div className="post-cover">
-        <div className="post-avatar">
-          <img src={post.avatar || Avatar} alt="avatar profile image" />
-          {post.imageURL && <img src={post.imageURL} alt="post attach" />}
-        </div>
-        <div className="post-box font-face-fira">
-          <div className="post-first-line">
-            <div className="user-info-cover">
-              <button
-                className={`font-face-silk username-clickable ${post?.authorColor}`}
-              >
-                {post?.authorName}
-              </button>
-              - {postCreated}
-            </div>
-          </div>
-          <div>
-            <input
-              type="text"
-              value={edittedMessage}
-              onChange={handleMessage}
-            />
-          </div>
-          <span>{postUpdated}</span>
-        </div>
-        <div className="erase" onClick={() => editPost(id)}>
-          <FaSdCard />
-        </div>
-        <div className="erase" onClick={() => setEdit(!edit)}>
+    <div className="edit-box">
+      <div>
+        <input
+          type="text"
+          className="edit-input"
+          value={edittedMessage}
+          onChange={handleMessage}
+          placeholder="Edit a post here..."
+        />
+      </div>
+      <div className="edit-footer">
+        <div className="icon" onClick={() => setEdit(!edit)}>
           <FaBackward />
         </div>
+        <div className="icon" onClick={() => editPost(id)}>
+          <FaSdCard />
+        </div>
       </div>
-    </>
+    </div>
   );
 };

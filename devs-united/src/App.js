@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      {author && <Header />}
 
       <Route exact path="/">
         <Entrance />

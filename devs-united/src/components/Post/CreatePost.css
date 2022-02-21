@@ -25,9 +25,10 @@
   
   .message-box-left {
     width: 100px;
-    height: 92px;
-    background-color: rgb(145, 77, 139);
+    height: 100px;
+    background-color: rgb(48, 25, 46);
     border-radius: 50%;
+    
   }
   
   .message-box-right {
@@ -37,7 +38,7 @@
   
   .message-box-left img {
     display: inline-block;
-    max-width: 100%;
+    max-height: 95%;
   }
   
   .message-footer {

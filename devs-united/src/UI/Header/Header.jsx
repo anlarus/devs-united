@@ -4,18 +4,19 @@ import Navbar from "../Navbar/Navbar";
 import LogoNavBar from "../../assets/images/LogoNavBar.jpg";
 import Avatar from "../../assets/images/avatarMusic.png";
 import TM from "../../assets/images/TM.jpg";
-import UserAreaContext, {
+import {
   useUserAreaContext,
 } from "../../providers/UserAreaProvider";
 import { auth } from "../../firebase";
 const Header = () => {
-  const [author, setAuthor] = useUserAreaContext();
+  const [author, setAuthor, reg, setReg] = useUserAreaContext();
 
   const signOut = (e) => {
     e.preventDefault();
     auth.signOut().then(() => {
       setAuthor(null);
       console.log("the author is signed out");
+      setReg(false)
     });
   };
 

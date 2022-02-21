@@ -14,7 +14,7 @@ export const useUserAreaContext = () => {
 };
 
 const UserAreaContext = ({ children }) => {
-  const [reg, setReg] = useState(null);
+  const [reg, setReg] = useState(false);
   const [author, setAuthor] = useState();
   console.log("print author from context", author);
 

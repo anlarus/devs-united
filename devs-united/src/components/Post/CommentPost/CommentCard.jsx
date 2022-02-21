@@ -41,7 +41,7 @@ export const CommentCard = ({
           </div>
         )}
       </div>
-      <div>{message}</div>
+      <div className="comment-message">{message}</div>
 
       <div className="comment-footer">
         <div className="comment-footer-like">

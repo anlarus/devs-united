@@ -12,7 +12,7 @@ export const SignUpInput = ({
   setAuthorColor,
   enter,
   setAvatar,
-  avatar,
+
   signUp,
   signInWithGoogle,
 }) => {
@@ -53,7 +53,7 @@ export const SignUpInput = ({
       <input
         type="submit"
         className="reg-button-cover"
-        value="Sign up as an author"
+        value="Sign up with your email"
         onSubmit={signUp}
       />
     </>

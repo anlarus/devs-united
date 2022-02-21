@@ -10,10 +10,10 @@ const AvatarLine = ({ setAvatar }) => {
     <>
       <p className="font-face-fira">Select your avatar image</p>
 
-      <div className="color-cover">
+      <div className="avatar-cover">
         {avatarsCollection.map((avatar) => {
           return (
-            <div key={avatar.id} className={`color-box`}>
+            <div key={avatar.id} className={`avatar-box`}>
               <img
                 key={avatar.alt}
                 alt={avatar.alt}

@@ -12,7 +12,6 @@ import { getAuthor } from "../../services/author";
 const Entrance = () => {
   const [body, setBody] = useState({});
   const [avatar, setAvatar] = useState({});
-  const [progress, setProgress] = useState(0);
   const [author, setAuthor, reg, setReg] = useUserAreaContext();
   const [authorColor, setAuthorColor] = useState("");
   const [displayName, setDisplayName] = useState("");
@@ -128,7 +127,7 @@ const Entrance = () => {
 
   const registerHandler = () => {
     setReg(!reg);
-    setEnter("Sign up ");
+    enter == "Sign In " ? setEnter("Sign up "): setEnter("Sign In ");
   };
 
   return (
@@ -139,8 +138,8 @@ const Entrance = () => {
 
           <form className="font-face-silk" onSubmit={signIn}>
             <p>
-              welcome{" "}
-              <span>{`${displayName ? { displayName } : "dear author"}`}</span>
+              welcome  {""}  
+              <span>{`${displayName ? { displayName } : "  dear author"}`}</span>
             </p>
 
             <SignInInput
@@ -152,7 +151,7 @@ const Entrance = () => {
               signIn={signIn}
             />
           </form>
-          <p onClick={registerHandler}>
+          <p className="font-face-silk" onClick={registerHandler}>
             Or <span>Sign Up</span>
           </p>
         </>
@@ -173,7 +172,7 @@ const Entrance = () => {
               enter={enter}
               signUp={signUp}
             />
-            <p onClick={registerHandler}>
+            <p className="font-face-silk" onClick={registerHandler}>
               Or <span>Sign In</span>
             </p>
           </form>
