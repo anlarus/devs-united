@@ -1,9 +1,32 @@
 .loader {
-    margin: 10px auto;
-    border: 8px solid rgb(80, 227, 194);
-    border-top: 8px solid #572ee5;
+    margin: 500px auto;
+    border: 16px solid rgb(245, 13, 90);
+    border-top: 16px solid rgb(255, 234, 92);
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 4s linear infinite;
+    box-shadow: rgba(0, 218, 118, 0.35) 0px 5px 15px;
+    width: 100px;
+    height: 100px;
+    animation: spin 3s linear infinite;
   }
+
+  .username-clickable-comment.red {
+    background-color: rgb(245, 13, 90);
+  }
+  .username-clickable-comment.orange {
+    background-color: rgb(255, 134, 92);
+  }
+  .username-clickable-comment.yellow {
+    background-color: rgb(255, 234, 92);
+    color: rgb(48, 9, 48);
+  }
+  .username-clickable.green {
+    background-color: rgb(0, 218, 118);
+  }
+  .username-clickable-comment.blue {
+    background-color: rgb(0, 150, 206);
+  }
+  
+  .username-clickable-comment.violet {
+    background-color: rgb(128, 15, 255);
+  }
+  

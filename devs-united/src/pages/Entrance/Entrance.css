@@ -1,7 +1,6 @@
 .sing-in-main {
   background-color: rgb(46, 19, 44);
   width: 100%;
- 
   display: flex;
   flex-flow: column wrap;
   justify-content: space-evenly;
@@ -12,6 +11,19 @@
 
 .sign-in-form {
   width: 50%;
+}
+
+@media screen and (min-width: 901px) {
+  .sign-in-form {
+    width: 50%;
+  }
+}
+
+
+@media screen and (max-width: 900px) {
+  .sign-in-form {
+    width: 90%;
+  }
 }
 
 .font-face-fira {

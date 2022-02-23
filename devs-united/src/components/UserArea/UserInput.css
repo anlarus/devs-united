@@ -1,35 +1,33 @@
-
 .reg-input {
-    background-color: rgb(204, 102, 197);
-    border: none;
-    width: 75%;
-    height: 53px;
-    margin: 3px;
-    text-align: center;
-  }
-  .reg-input.middle {
-    background-color: rgb(21, 7, 20);
-    border: none;
-    width: 75%;
-    height: 53px;
-  }
-  .reg-input.small {
-    background-color: rgb(21, 7, 20);
-    border: none;
-    width: 75%;
-    height: 53px;
-  }
+  background-color: rgb(204, 102, 197);
+  border: none;
+  width: 75%;
+  height: 53px;
+  margin: 3px;
+  text-align: center;
+}
+.reg-input.middle {
+  background-color: rgb(21, 7, 20);
+  border: none;
+  width: 75%;
+  height: 53px;
+}
+.reg-input.small {
+  background-color: rgb(21, 7, 20);
+  border: none;
+  width: 75%;
+  height: 53px;
+}
 
- 
-  input::placeholder {
-    color: rgb(145, 77, 139);
-    font-family: "Fira Code", monospace;
-    font-size: 18px;
-  }
+input::placeholder {
+  color: rgb(145, 77, 139);
+  font-family: "Fira Code", monospace;
+  font-size: 18px;
+}
 
 input[type="submit"] {
   padding: 1em;
-  background: rgb(145,77,139);
+  background: rgb(145, 77, 139);
   border: 0 none;
   cursor: pointer;
   -webkit-border-radius: 2px;
@@ -37,5 +35,30 @@ input[type="submit"] {
   font-size: 12px;
   color: black;
 }
-  
-  
+
+.google-logo-cover {
+  width: 15%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-cover {
+  display: flex;
+  flex-flow: row nowrap;
+  background-color: white;
+  width: 75%;
+  height: 58px;
+  margin: 0 auto;
+  /* margin: 41px auto; */
+}
+
+.google-button {
+  display: block;
+  background-color: #4688f1;
+  border: none;
+  color: white;
+  width: 85%;
+  font-size: 18px;
+}

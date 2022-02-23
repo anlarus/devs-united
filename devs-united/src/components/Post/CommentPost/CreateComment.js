@@ -57,15 +57,15 @@ const CreateComment = ({
             type="text"
             className="font-face-fira comment-input"
             name="message"
-            maxLength="50"
+            maxLength="100"
             onChange={handleOnchange}
             value={comment?.message}
           />
         </div>
-        <progress max="50" value={comment?.message.length}></progress>
+        <progress max="100" value={comment?.message.length}></progress>
         <div className="message-footer">
           <span>{comment?.message.length}</span>
-          <span> - 50 max.</span>
+          <span> - 100 max.</span>
           <span className="erase" onClick={() => createComment(id)}>
             <FaSave />
           </span>

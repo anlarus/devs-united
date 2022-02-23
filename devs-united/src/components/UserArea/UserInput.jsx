@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./UserInput.css";
-import { useStyle } from "../../providers/StyleProvider";
-import ColorLine from "../ColorLine/ColorLine";
-import { GoogleButton } from "../GoogleButton/GoogleButton";
+import ColorLine from "../../utils/ColorLine/ColorLine";
 import AvatarLine from "../../utils/AvatarLine/AvatarLine";
 
 export const SignUpInput = ({
@@ -12,7 +10,6 @@ export const SignUpInput = ({
   setAuthorColor,
   enter,
   setAvatar,
-
   signUp,
   signInWithGoogle,
 }) => {
@@ -24,7 +21,22 @@ export const SignUpInput = ({
     <>
       <ColorLine setAuthorColor={setAuthorColor} />
       <AvatarLine setAvatar={setAvatar} />
-      <GoogleButton enter={enter} signInWithGoogle={signInWithGoogle} />
+
+      <div className="button-cover">
+          <div className="google-logo-cover">
+            <img
+              className="google-icon-svg"
+              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+            />
+          </div>
+          <button
+            className="google-button"
+            onClick={signInWithGoogle}
+          >
+            {`${enter} with Google`}
+          </button>  
+        </div>
+ 
       <p className="font-face-fira">or sign up with your email</p>
       <input
         name="displayName"
@@ -75,7 +87,20 @@ export const SignInInput = ({
   return (
     <>
       {" "}
-      <GoogleButton enter={enter} signInWithGoogle={signInWithGoogle} />
+      <div className="button-cover">
+          <div className="google-logo-cover">
+            <img
+              className="google-icon-svg"
+              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+            />
+          </div>
+          <button
+            className="google-button"
+            onClick={signInWithGoogle}
+          >
+            {`${enter} with Google`}
+          </button>  
+        </div>
       <p className="font-face-fira">or sign in with your email</p>
       <input
         type="email"

@@ -1,5 +1,5 @@
 import { FaHeart, FaRegHeart, FaTrashAlt } from "react-icons/fa";
-import "./CommentCard.css"
+import "./CommentCard.css";
 import firebase, { firestore, storage, auth, signOut } from "../../../firebase";
 import { useEffect, useState } from "react";
 
@@ -30,8 +30,9 @@ export const CommentCard = ({
           >
             {comment?.authorName}
           </button>
-          - created: {commentCreated}
         </div>
+        <span> - created: {commentCreated}</span>
+
         {author.uid == comment.author && (
           <div
             className="erase"
@@ -54,11 +55,8 @@ export const CommentCard = ({
             <FaRegHeart
               onClick={() => likeComment(comment.commentID, author)}
             />
-          )}
-        </div>
-        <div className="comment-footer-likes">
+          )}{" "}
           <span>{comment.likes.length}</span>
-   
         </div>
       </div>
     </div>

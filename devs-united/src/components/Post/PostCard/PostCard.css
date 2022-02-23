@@ -95,6 +95,12 @@
   margin: 0 10px;
 }
 
+.updated {
+  text-align: justify;
+  font-size: 90%;
+  color:rgb(112, 5, 41)
+}
+
 .username-clickable.red {
   background-color: rgb(245, 13, 90);
 }

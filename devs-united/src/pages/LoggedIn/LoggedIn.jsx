@@ -1,36 +1,26 @@
 import "./LoggedIn.css";
-import CreatePost from "../../components/Post/CreatePost";
+import CreatePost from "../../components/Post/CreatePost/CreatePost";
 import { PostCard } from "../../components/Post/PostCard/PostCard";
 import firebase, { firestore, storage, auth, signOut } from "../../firebase";
-import {
-  FaStar
-} from "react-icons/fa";
-import { useStyle } from "../../providers/StyleProvider";
+import { FaStar } from "react-icons/fa";
 import React, { useState, useEffect, useRef } from "react";
 import { useUserAreaContext } from "../../providers/UserAreaProvider";
+import { Spinner } from "../../utils/Spinner/Spinner";
 
 const LoggedIn = () => {
-  const {
-    style: { deviceClass },
-  } = useStyle();
-  const [author, setAuthor] = useUserAreaContext();
+  const [author] = useUserAreaContext();
+  const [loading, setLoading] = useState(false);
   const [postAuthor, setPostAuthor] = useState();
-
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
   const [filterFavourites, setFilterFavourites] = useState(false);
-  const [nameToFilter, setNameToFilter] = useState(false);
+
+  console.log(loading);
 
   console.log("from logged in", author);
 
-  useEffect(() => {
-    getPosts();
-    getComments();
-  }, []);
-
-  //una vista adicional, textarea, update - message - new value//
-
   const getPosts = () => {
+    setLoading(true);
     const unsuscribe = firestore.collection("posts").onSnapshot((snapshot) => {
       const posts = snapshot.docs.map((doc) => {
         console.log("post contaner from getpost", doc.data());
@@ -51,6 +41,7 @@ const LoggedIn = () => {
         };
       });
       setPosts(posts);
+      setLoading(false);
     });
 
     return () => unsuscribe();
@@ -61,10 +52,6 @@ const LoggedIn = () => {
       .collection("comments")
       .onSnapshot((snapshot) => {
         const comments = snapshot.docs.map((doc) => {
-          console.log(doc.data());
-
-          console.log(doc.id);
-
           return {
             message: doc.data().message,
             author: doc.data().author,
@@ -82,6 +69,11 @@ const LoggedIn = () => {
 
     return () => unsuscribe();
   };
+
+  useEffect(() => {
+    getPosts();
+    getComments();
+  }, []);
 
   // const filterPosts = () => {  options tu filter posts
   //   firestore
@@ -128,12 +120,11 @@ const LoggedIn = () => {
   };
 
   const likePost = (id) => {
-       firestore
+    firestore
       .collection(`posts`)
       .doc(id)
       .get()
       .then(async (post) => {
-      
         updateLike(post, id, author);
       });
   };
@@ -162,12 +153,12 @@ const LoggedIn = () => {
   };
 
   const commentPost = (id) => {
-       firestore
+    firestore
       .collection(`posts`)
       .doc(id)
       .get()
       .then(async (post) => {
-          newComment(post, id, author);
+        newComment(post, id, author);
       });
   };
 
@@ -226,21 +217,45 @@ const LoggedIn = () => {
 
   return (
     <div className="font-face-silk">
+      {loading && <Spinner />}
+
       <main className="logged-in-main">
         <CreatePost setPostAuthor={setPostAuthor} getPosts={getPosts} />
-       
 
-        <section className="logged-in-section">
-        <button className="fav-button" onClick={() => setFilterFavourites(!filterFavourites)}>
-          Show favourites! <FaStar/>
-        </button>
-          {posts?.map((post) => {
-            if (filterFavourites) {
-              if (post?.likes.includes(author.uid)) {
+        {posts.length > 0 && (
+          <section className="logged-in-section">
+            <button
+              className="fav-button"
+              onClick={() => setFilterFavourites(!filterFavourites)}
+            >
+              Show favourites! <FaStar />
+            </button>
+            {posts?.map((post) => {
+              if (filterFavourites) {
+                if (post?.likes.includes(author.uid)) {
+                  return (
+                    <PostCard
+                      key={post.postID}
+                      id={post.postID}
+                      message={post.message}
+                      createdOn={post.createdOn}
+                      updatedOn={post.updatedOn}
+                      likes={post.likes}
+                      erasePost={erasePost}
+                      likePost={likePost}
+                      post={post}
+                      author={author}
+                      commentPost={commentPost}
+                      likeComment={likeComment}
+                      eraseComment={eraseComment}
+                      comments={comments}
+                      getComments={getComments}
+                    />
+                  );
+                }
+              } else {
                 return (
                   <PostCard
-                    nameToFilter={nameToFilter}
-                    setNameToFilter={setNameToFilter}
                     key={post.postID}
                     id={post.postID}
                     message={post.message}
@@ -259,57 +274,9 @@ const LoggedIn = () => {
                   />
                 );
               }
-            }
-            //else if (nameToFilter) {
-            //   if (post?.authorName == nameToFilter) {
-            //     return (
-            //       <PostCard
-            //         nameToFilter={nameToFilter}
-            //         setNameToFilter={setNameToFilter}
-            //         key={post.postID}
-            //         id={post.postID}
-            //         message={post.message}
-            //         createdOn={post.createdOn}
-            //         updatedOn={post.updatedOn}
-            //         likes={post.likes}
-            //         erasePost={erasePost}
-            //         likePost={likePost}
-            //         post={post}
-            //         author={author}
-            //         commentPost={commentPost}
-            //         likeComment={likeComment}
-            //         eraseComment={eraseComment}
-            //         comments={comments}
-            //         getComments={getComments}
-            //       />
-            //     );
-            //   }
-            // }
-            else {
-              return (
-                <PostCard
-                  nameToFilter={nameToFilter}
-                  setNameToFilter={setNameToFilter}
-                  key={post.postID}
-                  id={post.postID}
-                  message={post.message}
-                  createdOn={post.createdOn}
-                  updatedOn={post.updatedOn}
-                  likes={post.likes}
-                  erasePost={erasePost}
-                  likePost={likePost}
-                  post={post}
-                  author={author}
-                  commentPost={commentPost}
-                  likeComment={likeComment}
-                  eraseComment={eraseComment}
-                  comments={comments}
-                  getComments={getComments}
-                />
-              );
-            }
-          })}
-        </section>
+            })}
+          </section>
+        )}
       </main>
     </div>
   );

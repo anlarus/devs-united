@@ -12,12 +12,10 @@ const CreatePost = ({ getPosts }) => {
     createdOn: "",
     updatedOn: "",
     likes: [],
-    comments: []
   });
   const [author] = useUserAreaContext();
   const [image, setImage] = useState("");
-
-  const [file, setFile] = useState({});
+  const [done, setDone] = useState(false);
   const [progress, setProgress] = useState(0);
 
   const [isUploaded, setIsUploaded] = useState(false);
@@ -48,13 +46,14 @@ const CreatePost = ({ getPosts }) => {
       .add(post)
       .then((postRef) => {
         console.log(`post sucess =>`, postRef);
-        // addImage(post.image, postRef.id);
         getPosts();
+        setDone(!done);
       })
-      .catch((err) => console.error(err.message));
+      .catch((err) => console.error(err.message))
+      .finally(setProgress(0));
   };
 
-  const addImage = (image, postID) => {
+  const addImage = (image) => {
     setIsUploaded(true);
 
     console.log("image comes as =>", image);
@@ -98,9 +97,9 @@ const CreatePost = ({ getPosts }) => {
                 placeholder="What´s happening?"
                 maxLength="200"
                 onChange={handleOnchange}
-                value={post.message}
+                value={!done ? post.message : ""}
               ></textarea>
-              <progress value={post.message.length}></progress>
+              <progress max="200" value={post.message.length}></progress>
               <div className="message-footer">
                 <div className="message-footer-middle">
                   <span>{post.message.length}</span>

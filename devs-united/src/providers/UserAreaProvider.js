@@ -15,6 +15,7 @@ export const useUserAreaContext = () => {
 
 const UserAreaContext = ({ children }) => {
   const [reg, setReg] = useState(false);
+  
   const [author, setAuthor] = useState();
   console.log("print author from context", author);
 
@@ -27,15 +28,6 @@ const UserAreaContext = ({ children }) => {
       }
     });
   }, []);
-
-  // const setAuthor = (author) => {
-  //   localStorage.setItem("author", JSON.stringify(author));
-  //   if (author == null) {
-  //     localStorage.removeItem("author");
-  //   }
-  // };
-
-  // const author = localStorage.getItem("author");
 
   return (
     <Context.Provider value={[author, setAuthor, reg, setReg]}>

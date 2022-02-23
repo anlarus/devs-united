@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./Entrance.css";
 import DevsBigLogo from "../../utils/DevsBigLogo.jsx";
-import ColorLine from "../../components/ColorLine/ColorLine.jsx";
 import firebase, { auth, firestore, storage, provider } from "../../firebase";
-import { useStyle } from "../../providers/StyleProvider";
 import { SignUpInput, SignInInput } from "../../components/UserArea/UserInput";
-import GoogleLogin from "react-google-login";
 import { useUserAreaContext } from "../../providers/UserAreaProvider";
 import { getAuthor } from "../../services/author";
+import {Spinner} from "../../utils/Spinner/Spinner"
 
 const Entrance = () => {
   const [body, setBody] = useState({});
   const [avatar, setAvatar] = useState({});
-  const [author, setAuthor, reg, setReg] = useUserAreaContext();
+  const [author, setAuthor, reg, setReg] =
+    useUserAreaContext();
   const [authorColor, setAuthorColor] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [enter, setEnter] = useState("Sign In ");
@@ -21,54 +20,41 @@ const Entrance = () => {
     console.log("author in the entrance =>", auth.currentUser);
   }, []);
 
-  // const signInWithGoogle = (response) => {
-  //   const { displayName, email, uid, photoURL } = response.profileObj;
-  //   setAuthor({
-  //     displayName,
-  //     email,
-  //     uid,
-  //     photoURL,
-  //   });
-  // };
-
-  const signInWithGoogle = async (response) => {
-    const { displayName, email, uid, photoURL } = response.profileObj;
-
+  const signInWithGoogle = async () => {
+    console.log("enter to sign in with google")
+    
     firebase
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
+        console.log("GOOGLE LOGIN",result.user)
+        const { displayName, email, uid, photoURL } = result.user;
+     
         let db = firebase.firestore();
         db.collection("authors")
           .doc(uid)
           .get()
           .then(async (doc) => {
             if (doc.exists) {
-              setAuthor(doc);
+              setAuthor(doc.data());
             } else {
               db.collection("authors")
-                .doc(user.uid)
+                .doc(uid)
                 .set({
                   avatar: photoURL || avatar,
                   email: email,
                   uid: uid,
-                  authorColor: authorColor,
-                  displayName: displayName,
+                  authorColor: authorColor||"yellow",
+                  displayName: displayName||"TEST NAME",
                 });
               const user = await getAuthor(uid);
               setAuthor(user);
             }
           });
-        // ...
+        
       })
       .catch(function (error) {
-        // Handle Errors here.
-   console.log("some error occured on google API =>", error.message)
-        // ...
+        console.log("some error occured on google API =>", error.message);
       })
       .finally(setReg(!reg));
   };
@@ -99,7 +85,7 @@ const Entrance = () => {
       .catch((error) => {
         console.error(error.message);
       })
-      .finally(setReg(!reg));
+      .finally();
   };
 
   const signIn = (event) => {
@@ -122,24 +108,27 @@ const Entrance = () => {
       .catch((error) => {
         console.error(error.message);
       })
-      .finally(setReg(!reg));
+      .finally();
   };
 
   const registerHandler = () => {
     setReg(!reg);
-    enter == "Sign In " ? setEnter("Sign up "): setEnter("Sign In ");
+    enter == "Sign In " ? setEnter("Sign up ") : setEnter("Sign In ");
   };
 
   return (
     <main className="sing-in-main">
+     
+     
       {!author && !reg && (
         <>
-          <DevsBigLogo />
-
+        <DevsBigLogo />
           <form className="font-face-silk" onSubmit={signIn}>
             <p>
-              welcome  {""}  
-              <span>{`${displayName ? { displayName } : "  dear author"}`}</span>
+              welcome {""}
+              <span>{`${
+                displayName ? { displayName } : "  dear author"
+              }`}</span>
             </p>
 
             <SignInInput
@@ -159,8 +148,7 @@ const Entrance = () => {
 
       {!author && reg && (
         <>
-          <DevsBigLogo />
-
+        <DevsBigLogo />
           <form className="font-face-silk sign-in-form" onSubmit={signUp}>
             <SignUpInput
               body={body}
