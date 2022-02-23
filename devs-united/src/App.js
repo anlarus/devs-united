@@ -4,6 +4,7 @@ import Entrance from "./pages/Entrance/Entrance.jsx";
 import Header from "./UI/Header/Header";
 import LoggedIn from "./pages/LoggedIn/LoggedIn";
 import { useUserAreaContext } from "./providers/UserAreaProvider";
+import {Tm} from "./UI/TM/Tm"
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
           </Route>
         </>
       )}
+
+      <Tm/>
     </div>
   );
 }
