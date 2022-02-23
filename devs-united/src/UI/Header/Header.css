@@ -63,16 +63,8 @@ header {
     border-radius: 5px;
     padding: 3px;
   }
-  .small-avatar-box {
+  .header-img-container {
     display: none;
   }
-
-  .header-img-container {
-    width: 200px;
-   }
-
-   .header-img-container img {
-     max-width: 100%;
-   }
    
 }
