@@ -1,11 +1,12 @@
 import "./LoggedIn.css";
 import CreatePost from "../../components/Post/CreatePost/CreatePost";
 import { PostCard } from "../../components/Post/PostCard/PostCard";
-import firebase, { firestore, storage, auth, signOut } from "../../firebase";
+import firebase, { firestore } from "../../firebase";
 import { FaStar } from "react-icons/fa";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useUserAreaContext } from "../../providers/UserAreaProvider";
 import { Spinner } from "../../utils/Spinner/Spinner";
+import Header from "../../UI/Header/Header";
 
 const LoggedIn = () => {
   const [author] = useUserAreaContext();
@@ -15,34 +16,29 @@ const LoggedIn = () => {
   const [comments, setComments] = useState([]);
   const [filterFavourites, setFilterFavourites] = useState(false);
 
-  console.log(loading);
-
-  console.log("from logged in", author);
-
   const getPosts = () => {
     setLoading(true);
-    const unsuscribe = firestore.collection("posts").onSnapshot((snapshot) => {
-      const posts = snapshot.docs.map((doc) => {
-        console.log("post contaner from getpost", doc.data());
-
-        console.log("post id from getPost", doc.id);
-
-        return {
-          message: doc.data().message,
-          author: doc.data().author,
-          authorName: doc.data().authorName,
-          authorColor: doc.data().authorColor,
-          avatar: doc.data().avatar,
-          postID: doc.id,
-          createdOn: doc.data().createdOn,
-          updatedOn: doc.data().updatedOn,
-          likes: doc.data().likes || [],
-          imageURL: doc.data().imageURL || false,
-        };
+    const unsuscribe = firestore
+      .collection("posts")
+      .limit(20)
+      .onSnapshot((snapshot) => {
+        const posts = snapshot.docs.map((doc) => {
+          return {
+            message: doc.data().message,
+            author: doc.data().author,
+            authorName: doc.data().authorName,
+            authorColor: doc.data().authorColor,
+            avatar: doc.data().avatar,
+            postID: doc.id,
+            createdOn: doc.data().createdOn,
+            updatedOn: doc.data().updatedOn,
+            likes: doc.data().likes || [],
+            imageURL: doc.data().imageURL || false,
+          };
+        });
+        setPosts(posts);
+        setLoading(false);
       });
-      setPosts(posts);
-      setLoading(false);
-    });
 
     return () => unsuscribe();
   };
@@ -75,24 +71,13 @@ const LoggedIn = () => {
     getComments();
   }, []);
 
-  // const filterPosts = () => {  options tu filter posts
-  //   firestore
-  //     .collection("posts")
-  //     //.limit(4)
-  //     //.where('likes','>=',numberA)
-  //     //.where('likes','<=',numberB)
-  //     //.orderBy('likes','desc')
-  //     //.startAt(numberA)
-  //     //.endAt(numberB)
-
   const erasePost = (id) => {
-    console.log("el id de post a eliminar es =>", id);
     firestore
       .collection(`posts`)
       .doc(id)
       .delete()
       .then((post) => {
-        console.log("se elimino el post de referencia");
+        console.log("the post was successfully deleted");
       })
       .catch((error) =>
         console.error(
@@ -103,7 +88,6 @@ const LoggedIn = () => {
   };
 
   const eraseComment = (commentID) => {
-    console.log("el id de comment a eliminar es =>", commentID);
     firestore
       .collection(`comments`)
       .doc(commentID)
@@ -180,14 +164,11 @@ const LoggedIn = () => {
   };
 
   const likeComment = (id) => {
-    console.log("the liked post is =>", id);
-
     firestore
       .collection(`comments`)
       .doc(id)
       .get()
       .then((comment) => {
-        console.log("se trajo el comment de referencia", comment.data());
         updateCommentLike(comment, id, author);
       });
   };
@@ -218,17 +199,18 @@ const LoggedIn = () => {
   return (
     <div className="font-face-silk">
       {loading && <Spinner />}
-
+      <Header />
       <main className="logged-in-main">
         <CreatePost setPostAuthor={setPostAuthor} getPosts={getPosts} />
 
         {posts.length > 0 && (
           <section className="logged-in-section">
             <button
-              className="fav-button"
+              className={`fav-button ${filterFavourites ? "true" : "false"}`}
               onClick={() => setFilterFavourites(!filterFavourites)}
             >
-              Show favourites! <FaStar />
+              {`${filterFavourites ? "Hide" : "Show"} Favourites!`}
+              <FaStar />
             </button>
             {posts?.map((post) => {
               if (filterFavourites) {

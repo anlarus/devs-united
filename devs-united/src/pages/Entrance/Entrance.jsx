@@ -16,18 +16,14 @@ const Entrance = () => {
   const [displayName, setDisplayName] = useState("");
   const [enter, setEnter] = useState("Sign In ");
 
-  useEffect(() => {
-    console.log("author in the entrance =>", auth.currentUser);
-  }, []);
+
 
   const signInWithGoogle = async () => {
-    console.log("enter to sign in with google")
     
     firebase
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
-        console.log("GOOGLE LOGIN",result.user)
         const { displayName, email, uid, photoURL } = result.user;
      
         let db = firebase.firestore();
@@ -97,7 +93,7 @@ const Entrance = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(async (userCredential) => {
-        console.log("sign in success", userCredential);
+       
         console.log("sign in success", userCredential.user);
         const { uid } = userCredential.user;
 

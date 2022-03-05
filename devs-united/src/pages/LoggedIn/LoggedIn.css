@@ -55,9 +55,6 @@ span {
 
 
 
-.tradeMark {
-  color: rgb(145, 77, 139);
-}
 
 .footer-underline {
   height: 5px;
@@ -72,8 +69,19 @@ span {
   max-height: 52px;
 }
 
-.fav-button {
+.fav-button.false {
   background-color: rgb(255, 234, 92);
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  color: rgb(37, 13, 36);
+  margin: 5px 0;
+  border: none;
+  padding: 3px;
+}
+
+.fav-button.true {
+  background-color: rgb(128, 15, 255);
   width: 100%;
   text-align: center;
   font-size: 18px;

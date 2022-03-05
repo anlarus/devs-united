@@ -28,8 +28,7 @@ export const PostCard = ({
   likeComment,
   comments,
   getComments,
-  nameToFilter,
-  setNameToFilter,
+
 }) => {
   const [edittedMessage, setEdittedMessage] = useState("");
   const [commentOnPost, setCommentOnPost] = useState(false);

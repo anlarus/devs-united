@@ -1,56 +1,55 @@
-  textarea {
-    background-color: rgb(46,19,44);
-    border: none;
-    width: 100%;
-    height: 200px;
-    margin-bottom: 0;
-    color: white;
-    font-family: "Fira Code", monospace;
-    font-size: 18px;
-  }
-  
-  textarea::placeholder {
-    color: rgb(145, 77, 139);
-    font-family: "Fira Code", monospace;
-    font-size: 18px;
-  }
-  
-  .message-cover {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-around;
-    align-items: center;
-  }
-  
-  .message-box-left {
-    width: 100px;
-    height: 100px;
-    background-color: rgb(48, 25, 46);
-    border-radius: 50%;
-    overflow: hidden;
-  }
-  
-  .message-box-right {
-    width: 90%;
-    margin: 0 0 0 20px;
-  }
-  
-  .message-box-left img {
-    display: inline-block;
-    max-height: 95%;
-  }
-  
-  .message-footer {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .message-footer-middle {
-    display: inline-block;
-  }
+textarea {
+  background-color: rgb(46, 19, 44);
+  border: none;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 0;
+  color: white;
+  font-family: "Fira Code", monospace;
+  font-size: 18px;
+}
 
-  
+textarea::placeholder {
+  color: rgb(145, 77, 139);
+  font-family: "Fira Code", monospace;
+  font-size: 18px;
+}
+
+.message-cover {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 90%;
+}
+
+.message-box-left {
+  width: 75px;
+  height: 75px;
+  background-color: rgb(48, 25, 46);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.message-box-right {
+  width: 90%;
+  margin: 0 0 0 20px;
+}
+
+.message-box-left img {
+  display: inline-block;
+  max-height: 95%;
+}
+
+.message-footer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.message-footer-middle {
+  display: inline-block;
+}
 
 progress[value] {
   /* Reset the default appearance */
@@ -97,7 +96,7 @@ progress {
 
 ::-webkit-file-upload-button {
   background: rgb(47, 17, 45);
-  color: rgb(145,77,139);
+  color: rgb(145, 77, 139);
   padding: 1em;
   border: none;
   -webkit-border-radius: 2px;
@@ -111,5 +110,5 @@ input[type="file"] {
 }
 
 input[type="submit"]:disabled {
-  background: rgb(21,7,20);
+  background: rgb(21, 7, 20);
 }
