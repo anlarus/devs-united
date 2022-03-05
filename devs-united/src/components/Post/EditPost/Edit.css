@@ -12,18 +12,15 @@ input.edit-input {
   color: rgb(37, 13, 36);
   font-family: "Fira Code", monospace;
   font-size: 15px;
-  
+  word-wrap: break-word;
+  word-break: break-all;
 }
-
-
 
 .edit-input::placeholder {
   color: rgb(41, 22, 39);
   font-family: "Fira Code", monospace;
   font-size: 15px;
 }
-
-
 
 .edit-footer {
   display: flex;
@@ -32,7 +29,6 @@ input.edit-input {
   align-items: center;
   padding: 5px;
 }
-
 
 progress[value] {
   /* Reset the default appearance */

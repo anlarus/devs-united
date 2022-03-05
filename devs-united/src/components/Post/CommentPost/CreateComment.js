@@ -1,6 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import firebase, { firestore, storage } from "../../../firebase";
-import Avatar from "../../../assets/images/avatarMusic.png";
+import React, { useState } from "react";
+import  { firestore } from "../../../firebase";
 import { useUserAreaContext } from "../../../providers/UserAreaProvider";
 import { FaCommentSlash, FaSave } from "react-icons/fa";
 import "./CreateComment.css";

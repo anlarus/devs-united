@@ -21,6 +21,8 @@ const LoggedIn = () => {
     const unsuscribe = firestore
       .collection("posts")
       .limit(20)
+      .orderBy("createdOn", "desc")
+
       .onSnapshot((snapshot) => {
         const posts = snapshot.docs.map((doc) => {
           return {
@@ -46,6 +48,8 @@ const LoggedIn = () => {
   const getComments = () => {
     const unsuscribe = firestore
       .collection("comments")
+      .orderBy("createdOn", "desc")
+
       .onSnapshot((snapshot) => {
         const comments = snapshot.docs.map((doc) => {
           return {

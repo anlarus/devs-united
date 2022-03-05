@@ -15,7 +15,7 @@ const Header = () => {
     auth.signOut().then(() => {
       setAuthor(null);
       console.log("the author is signed out");
-      setReg(!reg)
+      setReg(false)
     });
   };
 

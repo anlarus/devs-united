@@ -1,15 +1,13 @@
 import { FaHeart, FaRegHeart, FaTrashAlt } from "react-icons/fa";
 import "./CommentCard.css";
-import firebase, { firestore, storage, auth, signOut } from "../../../firebase";
-import { useEffect, useState } from "react";
+
 
 export const CommentCard = ({
   message,
   eraseComment,
   likeComment,
   comment,
-  author,
-  commentPost,
+  author
 }) => {
   console.log("comment enters inside commentCard as=>", comment);
 
@@ -31,7 +29,7 @@ export const CommentCard = ({
             {comment?.authorName}
           </button>
         </div>
-        <span> - created: {commentCreated}</span>
+        <span> - commented: {commentCreated}</span>
 
         {author.uid == comment.author && (
           <div

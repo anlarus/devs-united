@@ -44,13 +44,5 @@ input[type="submit"].reg-button-cover {
   margin: 15px 0;
 }
 
-.footer-underline {
-  height: 5px;
-  background-color: rgb(21, 7, 20);
-  border-radius: 2px;
-  margin: 9px auto;
-}
 
-.tradeMark {
-  line-height: 24px;
-}
+

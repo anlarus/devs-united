@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { FaSdCard, FaBackward } from "react-icons/fa";
 import "./Edit.css";
 

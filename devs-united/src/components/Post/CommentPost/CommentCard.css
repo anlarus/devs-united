@@ -14,7 +14,7 @@
 }
 
 .comment-box {
-  width: 100%;
+  width: 90%;
   font-size: 80%;
   flex-flow: row nowrap;
   justify-content: space-between;

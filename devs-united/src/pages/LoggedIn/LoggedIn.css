@@ -56,13 +56,6 @@ span {
 
 
 
-.footer-underline {
-  height: 5px;
-  width: 35%;
-  background-color: rgb(37, 13, 36);
-  border-radius: 2px;
-  margin: 9px auto;
-}
 
 .header-img-container img {
   display: inline-block;

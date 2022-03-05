@@ -11,4 +11,17 @@
  font-style: italic;
  text-decoration: none;
  color: inherit;
+ color: rgb(114, 61, 110);
 }
+
+
+
+
+  
+.footer-underline {
+    height: 5px;
+    width: 100%;
+    background-color: rgb(37, 13, 36);
+    border-radius: 2px;
+    margin: 9px auto;
+  }

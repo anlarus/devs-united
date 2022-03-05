@@ -8,7 +8,7 @@ import {
 import Avatar3 from "../../../assets/images/avatarGardener.png";
 import "./PostCard.css";
 import { Edit } from "../EditPost/Edit";
-import firebase, { firestore } from "../../../firebase";
+import { firestore } from "../../../firebase";
 import { useEffect, useState } from "react";
 import { CommentCard } from "../CommentPost/CommentCard.jsx";
 import CreateComment from "../CommentPost/CreateComment";
@@ -161,6 +161,7 @@ export const PostCard = ({
               handleMessage={handleMessage}
               post={post}
               editPost={editPost}
+              edittedMessage={edittedMessage}
             />
           ) : (
             <div className="post-message">{message}</div>

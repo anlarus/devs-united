@@ -1,31 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Entrance.css";
 import DevsBigLogo from "../../utils/DevsBigLogo.jsx";
-import firebase, { auth, firestore, storage, provider } from "../../firebase";
+import firebase, { auth, firestore, provider } from "../../firebase";
 import { SignUpInput, SignInInput } from "../../components/UserArea/UserInput";
 import { useUserAreaContext } from "../../providers/UserAreaProvider";
 import { getAuthor } from "../../services/author";
-import {Spinner} from "../../utils/Spinner/Spinner"
 
 const Entrance = () => {
+  const [author, setAuthor, reg, setReg] = useUserAreaContext();
   const [body, setBody] = useState({});
   const [avatar, setAvatar] = useState({});
-  const [author, setAuthor, reg, setReg] =
-    useUserAreaContext();
+
   const [authorColor, setAuthorColor] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [enter, setEnter] = useState("Sign In ");
 
-
-
   const signInWithGoogle = async () => {
-    
     firebase
       .auth()
       .signInWithPopup(provider)
       .then((result) => {
         const { displayName, email, uid, photoURL } = result.user;
-     
+
         let db = firebase.firestore();
         db.collection("authors")
           .doc(uid)
@@ -40,14 +36,13 @@ const Entrance = () => {
                   avatar: photoURL || avatar,
                   email: email,
                   uid: uid,
-                  authorColor: authorColor||"yellow",
-                  displayName: displayName||"TEST NAME",
+                  authorColor: authorColor || "yellow",
+                  displayName: displayName || "TEST NAME",
                 });
               const user = await getAuthor(uid);
               setAuthor(user);
             }
           });
-        
       })
       .catch(function (error) {
         console.log("some error occured on google API =>", error.message);
@@ -93,7 +88,6 @@ const Entrance = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(async (userCredential) => {
-       
         console.log("sign in success", userCredential.user);
         const { uid } = userCredential.user;
 
@@ -114,17 +108,13 @@ const Entrance = () => {
 
   return (
     <main className="sing-in-main">
-     
-     
       {!author && !reg && (
         <>
-        <DevsBigLogo />
+          <DevsBigLogo />
           <form className="font-face-silk" onSubmit={signIn}>
             <p>
               welcome {""}
-              <span>{`${
-                displayName ? { displayName } : "  dear author"
-              }`}</span>
+              <span> dear author</span>
             </p>
 
             <SignInInput
@@ -144,7 +134,7 @@ const Entrance = () => {
 
       {!author && reg && (
         <>
-        <DevsBigLogo />
+          <DevsBigLogo />
           <form className="font-face-silk sign-in-form" onSubmit={signUp}>
             <SignUpInput
               body={body}

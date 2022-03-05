@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import firebase, { firestore, storage } from "../../../firebase";
+import React, {   useState  } from "react";
+import  { firestore, storage } from "../../../firebase";
 import Avatar from "../../../assets/images/avatarMusic.png";
 import "./CreatePost.css";
 import { useUserAreaContext } from "../../../providers/UserAreaProvider";
