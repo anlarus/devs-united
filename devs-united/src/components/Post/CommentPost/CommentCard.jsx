@@ -9,7 +9,6 @@ export const CommentCard = ({
   comment,
   author
 }) => {
-  console.log("comment enters inside commentCard as=>", comment);
 
   const commentCreated = new Date(comment.createdOn).toLocaleString("en-GB", {
     year: "numeric",

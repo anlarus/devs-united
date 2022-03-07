@@ -19,7 +19,6 @@ const AvatarLine = ({ setAvatar }) => {
                 alt={avatar.alt}
                 src={avatar.url}
                 onClick={(event) => {
-                  console.log(event.target.src);
                   setCheck(true);
                   setAvatar(event.target.src);
                 }}

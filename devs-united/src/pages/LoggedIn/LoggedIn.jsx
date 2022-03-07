@@ -97,7 +97,7 @@ const LoggedIn = () => {
       .doc(commentID)
       .delete()
       .then((comment) => {
-        console.log("the comment was deleted successfully", comment);
+        console.log("the comment was successfully deleted", comment);
       })
       .catch((error) =>
         console.error(
@@ -157,11 +157,11 @@ const LoggedIn = () => {
         comments: firebase.firestore.FieldValue.arrayUnion(author.uid),
       })
       .then(() => {
-        console.log("the likes for this post has been successfully updated");
+        console.log("the comments for this post has been successfully updated");
       })
       .catch((error) =>
         console.error(
-          "some error has occured on liking/disliking the post",
+          "some error has occured on commenting the post",
           error.message
         )
       );
@@ -190,11 +190,11 @@ const LoggedIn = () => {
         }),
       })
       .then(() => {
-        console.log("the likes for this post has been successfully updated");
+        console.log("the likes for this comment has been successfully updated");
       })
       .catch((error) =>
         console.error(
-          "some error has occured on liking/disliking the post",
+          "some error has occured on liking/disliking the comment",
           error.message
         )
       );

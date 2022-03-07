@@ -19,7 +19,6 @@ const CreateComment = ({
   });
   const [author] = useUserAreaContext();
 
-  console.log("id enters to comment creator as=>", id);
 
   const handleOnchange = (event) => {
     let { name, value } = event.target;

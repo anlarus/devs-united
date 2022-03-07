@@ -14,7 +14,7 @@ const Header = () => {
     e.preventDefault();
     auth.signOut().then(() => {
       setAuthor(null);
-      console.log("the author is signed out");
+      console.log("the author is successfully signed out");
       setReg(false)
     });
   };

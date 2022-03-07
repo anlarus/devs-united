@@ -28,16 +28,11 @@ export const PostCard = ({
   likeComment,
   comments,
   getComments,
-
 }) => {
   const [edittedMessage, setEdittedMessage] = useState("");
   const [commentOnPost, setCommentOnPost] = useState(false);
   const [edit, setEdit] = useState(false);
   const [alert, setAlert] = useState(null);
-
-  {
-    console.log(comments);
-  }
 
   const postCreated = new Date(createdOn).toLocaleString("en-GB", {
     year: "numeric",
@@ -82,12 +77,11 @@ export const PostCard = ({
       .doc(id)
       .get()
       .then((snapshot) => {
-        console.log(snapshot.data());
         const post = snapshot.data();
         setEdittedMessage(post.message);
       })
       .catch((error) =>
-        console.log(
+        console.error(
           "some error has occured in setting a new post message",
           error.message
         )
@@ -115,9 +109,10 @@ export const PostCard = ({
     <>
       {alert && (
         <SweetAlert
+          customClass="alertBox"
           title={"Are you shore to delete?"}
           onConfirm={() => onConfirm(alert)}
-          onCancel={()=>onCancel()}
+          onCancel={() => onCancel()}
           showCancel
         ></SweetAlert>
       )}

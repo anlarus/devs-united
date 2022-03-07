@@ -9,13 +9,6 @@ header {
 
 }
 
-.header a:hover,
-.header a:active,
-.header a.active {
-  color: rgb(0, 218, 118);
-  padding-bottom: 0.25rem;
-  
-}
 
 .small-avatar-box {
   width: 52px;
@@ -45,9 +38,11 @@ header {
   text-align: center;
   font-size: 18px;
   color: white;
-  margin: 5px 0;
+  margin: 10px;
   border: none;
-  padding: 3px;
+  padding: 7px;
+  border-radius: 5px;
+
 }
 
 
@@ -56,11 +51,11 @@ header {
     background-color: rgb(0, 218, 118);
     width: 30%;
     text-align: center;
-    font-size: 90%;
+    font-size: 15px;
     color: white;
-    margin: 5px 0;
+    margin: 5px;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 3px;
   }
   .header-img-container {

@@ -56,13 +56,11 @@ const CreatePost = ({ getPosts }) => {
   const addImage = (image) => {
     setIsUploaded(true);
 
-    console.log("image comes as =>", image);
     const uploadTask = storage.ref().child(`/posts/${image.name}`).put(image);
 
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        console.log(snapshot);
         let progress = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
@@ -74,7 +72,6 @@ const CreatePost = ({ getPosts }) => {
 
       () => {
         uploadTask.snapshot.ref.getDownloadURL().then((url) => {
-          console.log("URL of image is =>", url);
           setImage(url);
           setIsUploaded(false);
         });
