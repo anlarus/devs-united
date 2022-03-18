@@ -23,7 +23,7 @@ const ColorLine = ({setAuthorColor}) => {
               }}
               key={colorbox.color}
               checked = {check}
-              className={`color-box ${colorbox.color} ${focus}`}
+              className={`color-box ${colorbox.color}`}
               
             />
           );
