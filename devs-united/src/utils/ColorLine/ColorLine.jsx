@@ -5,7 +5,7 @@ import { colorsCollection } from "../../utils/colors";
 
 const ColorLine = ({setAuthorColor}) => {
   const [check, setCheck] = useState(false);
-  const [focus, setFocus] = useState("")
+
 
 
   return (
@@ -19,12 +19,12 @@ const ColorLine = ({setAuthorColor}) => {
               onClick={(event) => {
                 setCheck(true);
                 setAuthorColor(colorbox.color);
-                // setFocus("onFocus");
-                // event.target.className = `onFocus`
+          
               }}
               key={colorbox.color}
               checked = {check}
               className={`color-box ${colorbox.color} ${focus}`}
+              
             />
           );
         })}
