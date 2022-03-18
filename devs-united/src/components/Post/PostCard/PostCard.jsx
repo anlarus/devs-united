@@ -36,7 +36,7 @@ export const PostCard = ({
 
   const postCreated = new Date(createdOn).toLocaleString("en-GB", {
     year: "numeric",
-    month: "short",
+    month: "numeric",
     day: "numeric",
     hour: "numeric",
     minute: "numeric",
@@ -44,7 +44,7 @@ export const PostCard = ({
 
   const postUpdated = new Date(updatedOn).toLocaleString("en-GB", {
     year: "numeric",
-    month: "short",
+    month: "numeric",
     day: "numeric",
     hour: "numeric",
     minute: "numeric",
@@ -110,7 +110,7 @@ export const PostCard = ({
       {alert && (
         <SweetAlert
           customClass="alertBox"
-          title={"Are you shore to delete?"}
+          title={"undoubtedly\n delete?"}
           onConfirm={() => onConfirm(alert)}
           onCancel={() => onCancel()}
           showCancel
@@ -131,7 +131,7 @@ export const PostCard = ({
               {post.authorName}
             </button>
           </div>
-          <div className="post-header-box">
+          <div className="date-box">
             {" "}
             <span>- created: {postCreated}</span>
           </div>
@@ -211,7 +211,7 @@ export const PostCard = ({
             if (comment?.referenceToPost == id) {
               return (
                 <CommentCard
-                  key={comment.id}
+                  key={comment.createdOn}
                   id={id}
                   message={comment.message}
                   createdOn={comment.createdOn}

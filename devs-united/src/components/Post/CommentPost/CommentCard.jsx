@@ -28,7 +28,10 @@ export const CommentCard = ({
             {comment?.authorName}
           </button>
         </div>
+        <div className="date-box">
         <span> - commented: {commentCreated}</span>
+          </div>
+        
 
         {author.uid == comment.author && (
           <div

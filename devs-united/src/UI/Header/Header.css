@@ -6,7 +6,6 @@ header {
   align-items: center;
   width: 100%;
   background-color: rgb(37, 12, 35);
-
 }
 
 
@@ -21,10 +20,11 @@ header {
 .small-avatar-box img {
   display: inline-block;
   max-height: 95%;
+  margin: 0 auto;
 }
 
 .header-img-container img {
-  max-height: 35px;
+height: 35px;
   
 }
 
@@ -34,32 +34,37 @@ header {
 
 .sign-out {
   background-color: rgb(0, 218, 118);
-  width: 15%;
+
   text-align: center;
   font-size: 18px;
   color: white;
-  margin: 10px;
+
   border: none;
   padding: 7px;
   border-radius: 5px;
-
 }
 
 
 @media screen and (max-width: 900px) {
   .sign-out {
     background-color: rgb(0, 218, 118);
-    width: 30%;
     text-align: center;
     font-size: 15px;
     color: white;
-    margin: 5px;
+    
     border: none;
     border-radius: 3px;
-    padding: 3px;
+    padding: 0.5em;
   }
   .header-img-container {
     display: none;
   }
-   
+  .small-avatar-box {
+    display: none;
+  }
+
+  span {
+    font-size: 15px;
+  }
+ 
 }

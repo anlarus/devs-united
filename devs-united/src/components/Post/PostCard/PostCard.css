@@ -1,11 +1,21 @@
 .username-clickable {
   border: none;
   display: inline;
-  padding: 0 10px;
-  line-height: 32px;
-  font-size: 18px;
+  padding: 2px;
   margin: 5px 0;
   color: white;
+}
+
+@media screen and (max-width: 900px) {
+  .username-clickable {
+    font-size: 15px;
+  }
+}
+
+@media screen and (min-width: 901px) {
+  .username-clickable {
+    font-size: 18px;
+  }
 }
 
 .redHeart {
@@ -19,7 +29,6 @@
   flex-flow: column nowrap;
   justify-content: space-evenly;
   align-items: center;
-  padding: 5px 5px;
   margin: 0;
   width: 100%;
   color: white;
@@ -27,18 +36,18 @@
 
 .post-box {
   width: 90%;
-  margin: 0 0 0 20px;
+  margin: 1em 5%;
   flex-flow: column nowrap;
-  align-items: justify;
+  align-items: center;
   justify-content: space-between;
-  padding: 10px;
+
   background-color: rgb(31, 10, 29);
 }
 
 .post-message {
   background-color: rgb(117, 63, 113);
-  padding: 5 px;
   width: 100%;
+  word-wrap: break-word;
 }
 
 .post-header {
@@ -54,25 +63,32 @@
 }
 
 .post-image-box {
-  width: 95%;
+  width: 100%;
 }
 
 .post-image-box img {
   width: 90%;
+  margin: 0 5%;
 }
 
 .post-header-avatar {
   height: 50px;
   width: 50px;
-  background-color: rgb(37,12,35);
+  background-color: rgb(37, 12, 35);
   border-radius: 50%;
   margin: 10px 5px;
   border: solid rgb(255, 234, 92) 1px;
   overflow: hidden;
 }
 
+.date-box {
+  word-wrap: normal;
+  max-width: 35%;
+}
+
 .post-header-avatar img {
-  display: inline-block;
+  display: block;
+  margin: 0 auto;
   max-height: 95%;
   max-width: 95%;
 }
@@ -99,7 +115,7 @@
 .updated {
   text-align: justify;
   font-size: 90%;
-  color:rgb(112, 5, 41)
+  color: rgb(112, 5, 41);
 }
 
 .username-clickable.red {
@@ -123,12 +139,22 @@
   background-color: rgb(128, 15, 255);
 }
 
-.alertBox {
-  background-color: rgb(255, 234, 92);
+.alertBox h2 {
   color: rgb(245, 13, 90);
+  width: 200px;
+  background-color: rgb(255, 234, 92);
+  white-space: pre;
 }
+
+.alertBox {
+  font-size: 8px;
+  width: 250px;
+}
+
+
 
 .alertBox a {
   text-decoration: none;
   color: rgb(255, 134, 92);
+  font-size: 15px;
 }

@@ -5,6 +5,7 @@ import { avatarsCollection } from "./avatars.js";
 
 const AvatarLine = ({ setAvatar }) => {
   const [check, setCheck] = useState(false);
+  const [focus, setFocus] = useState("")
 
   return (
     <>
@@ -13,13 +14,18 @@ const AvatarLine = ({ setAvatar }) => {
       <div className="avatar-cover">
         {avatarsCollection.map((avatar) => {
           return (
-            <div key={avatar.id} className={`avatar-box`}>
+            <div key={avatar.id} className={`avatar-box`}
+            // onClick = {(event) => {
+            //   setFocus("onFocus")
+            //   event.target.className = `${focus}`}}
+            >
               <img
                 key={avatar.alt}
                 alt={avatar.alt}
                 src={avatar.url}
                 onClick={(event) => {
                   setCheck(true);
+                  
                   setAvatar(event.target.src);
                 }}
               />

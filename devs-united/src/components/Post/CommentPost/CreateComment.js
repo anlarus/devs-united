@@ -61,7 +61,7 @@ const CreateComment = ({
           />
         </div>
         <progress max="100" value={comment?.message.length}></progress>
-        <div className="message-footer">
+        <div className="comment-footer">
           <span>{comment?.message.length}</span>
           <span> - 100 max.</span>
           <span className="erase" onClick={() => createComment(id)}>

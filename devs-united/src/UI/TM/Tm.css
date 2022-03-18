@@ -1,5 +1,9 @@
 .trade-mark-box {
     margin: 20px auto 5px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .tradeMark {
@@ -14,9 +18,13 @@
  color: rgb(114, 61, 110);
 }
 
+p {
+  text-align: center;
+}
 
-
-
+a {
+  text-align: center;
+}
   
 .footer-underline {
     height: 5px;

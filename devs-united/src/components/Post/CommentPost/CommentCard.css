@@ -1,11 +1,11 @@
 .username-clickable-comment {
   border: none;
   display: inline;
-  padding: 0 5px;
+
   line-height: 32px;
   /* background-color: rgb(128, 15, 255); */
   font-size: 15px;
-  margin: 3px 0;
+
   color: white;
 }
 
@@ -13,12 +13,16 @@
   color: rgb(245, 13, 90);
 }
 
+.date-box {
+  word-wrap: normal;
+}
+
 .comment-box {
   width: 95%;
+  margin: 0 2.5%;
   font-size: 15px;
   flex-flow: row nowrap;
   justify-content: space-between;
-  padding: 5px;
 }
 
 .comment-first-line {
@@ -32,14 +36,6 @@
   flex-flow: row nowrap;
   justify-content: space-evenly;
   align-items: center;
-  margin: 10px 0;
-}
-
-.like,
-.dislike,
-.erase {
-  width: 20px;
-  margin: 0 10px;
 }
 
 span {
@@ -48,7 +44,7 @@ span {
 
 .comment-message {
   background-color: rgb(117, 63, 113);
-  padding: 5px;
+
   width: 100%;
 }
 

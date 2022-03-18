@@ -201,19 +201,23 @@ const LoggedIn = () => {
   };
 
   return (
-    <div className="font-face-silk">
+    <>
       {loading && <Spinner />}
-      <Header />
-      <main className="logged-in-main">
-        <CreatePost setPostAuthor={setPostAuthor} getPosts={getPosts} />
 
+      <Header />
+      <main className="logged-in-main font-face-silk">
+        <section className="logged-in-section">
+          <CreatePost setPostAuthor={setPostAuthor} getPosts={getPosts} />
+        </section>
         {posts.length > 0 && (
           <section className="logged-in-section">
             <button
-              className={`fav-button ${filterFavourites ? "true" : "false"}`}
+              className={`font-face-silk fav-button ${
+                filterFavourites ? "true" : "false"
+              }`}
               onClick={() => setFilterFavourites(!filterFavourites)}
             >
-              {`${filterFavourites ? "Hide" : "Show"} Favourites!`}
+              {`${filterFavourites ? "Hide " : "Show "} favourites!  `}
               <FaStar />
             </button>
             {posts?.map((post) => {
@@ -264,7 +268,7 @@ const LoggedIn = () => {
           </section>
         )}
       </main>
-    </div>
+    </>
   );
 };
 

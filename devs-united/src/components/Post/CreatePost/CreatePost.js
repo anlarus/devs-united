@@ -1,5 +1,5 @@
-import React, {   useState  } from "react";
-import  { firestore, storage } from "../../../firebase";
+import React, { useState } from "react";
+import { firestore, storage } from "../../../firebase";
 import Avatar from "../../../assets/images/avatarMusic.png";
 import "./CreatePost.css";
 import { useUserAreaContext } from "../../../providers/UserAreaProvider";
@@ -17,7 +17,6 @@ const CreatePost = ({ getPosts }) => {
   const [image, setImage] = useState("");
   const [done, setDone] = useState(false);
   const [progress, setProgress] = useState(0);
-
   const [isUploaded, setIsUploaded] = useState(false);
 
   const handleOnchange = (event) => {
@@ -79,57 +78,63 @@ const CreatePost = ({ getPosts }) => {
     );
   };
 
+  console.log("isUploaded", isUploaded);
+
   return (
     <>
-      <section className="logged-in-section">
-        <form className="logged-in-form" onSubmit={createPost}>
-          <div className="message-cover">
-            <div className="message-box-left">
-              <img src={author?.avatar || Avatar} alt="avatar profile image" />
-            </div>
-            <div className="message-box-right">
-              <textarea
-                className="font-face-fira"
-                name="message"
-                placeholder="What´s happening?"
-                maxLength="200"
-                onChange={handleOnchange}
-                value={!done ? post.message : ""}
-              ></textarea>
-              <progress max="200" value={post.message.length}></progress>
-              <div className="message-footer">
-                <div className="message-footer-middle">
-                  <span>{post.message.length}</span>
-                </div>
-                <div className="message-footer-middle">
-                  <span>200 max.</span>
-                </div>
+      <form className="logged-in-form" onSubmit={createPost}>
+        <div className="message-cover">
+          <div className="message-box-left">
+            <img src={author?.avatar || Avatar} alt="avatar profile image" />
+          </div>
+          <div className="message-box-right">
+            <textarea
+              className="font-face-fira"
+              name="message"
+              placeholder="What´s on your mind?"
+              maxLength="200"
+              onChange={handleOnchange}
+              value={!done ? post.message : ""}
+            ></textarea>
+            <progress
+              max="200"
+              value={post.message.length}
+              className="message-progress"
+            ></progress>
+
+            <div className="message-footer">
+              <div className="message-footer-middle">
+                <span>{post.message.length}</span>
+              </div>
+              <div className="message-footer-middle">
+                <span>200 max.</span>
               </div>
             </div>
           </div>
-          <div>
-            <input
-              className="font-face-silk post-input"
-              type="file"
-              title="Image"
-              name="image"
-              value={post.image?.name ?? ""}
-              onChange={handleUploadImage}
-            />
-          </div>
-          <progress
-            className="upload-progress"
-            max="100"
-            value={progress}
-          ></progress>
           <input
-            className="font-face-silk"
-            type="submit"
-            value="post"
-            disabled={isUploaded}
-          />
-        </form>
-      </section>
+          className="font-face-silk post-input"
+          type="file"
+          title="Image"
+          name="image"
+          value={post.image?.name ?? ""}
+          onChange={handleUploadImage}
+        />
+
+        <progress
+          className="upload-progress"
+          max="100"
+          value={progress}
+        ></progress>
+        <input
+          className="font-face-silk post-submit"
+          type="submit"
+          value="post"
+          disabled={isUploaded}
+        />
+        </div>
+
+       
+      </form>
     </>
   );
 };

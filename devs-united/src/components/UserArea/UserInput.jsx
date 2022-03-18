@@ -18,26 +18,26 @@ export const SignUpInput = ({
   };
 
   return (
-    <>
+    <form className="sign-form" onSubmit={signUp}>
       <ColorLine setAuthorColor={setAuthorColor} />
-      <AvatarLine setAvatar={setAvatar} />
+    
 
       <div className="button-cover">
-          <div className="google-logo-cover">
-            <img
-              className="google-icon-svg"
-              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-            />
-          </div>
-          <button
-            className="google-button"
-            onClick={signInWithGoogle}
-          >
-            {`${enter} with Google`}
-          </button>  
+        <div className="google-logo-cover">
+          <img
+            className="google-icon-svg"
+            src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+          />
         </div>
- 
-      <p className="font-face-fira">or sign up with your email</p>
+        <button className="google-button" onClick={signInWithGoogle}>
+          {`${enter} with Google`}
+        </button>
+      </div>
+
+      <p className="font-face-fira">or with your email</p>
+
+      <AvatarLine setAvatar={setAvatar} />
+
       <input
         name="displayName"
         onChange={(e) => setDisplayName(e.target.value)}
@@ -68,7 +68,7 @@ export const SignUpInput = ({
         value="Sign up with your email"
         onSubmit={signUp}
       />
-    </>
+    </form>
   );
 };
 
@@ -85,23 +85,20 @@ export const SignInInput = ({
   };
 
   return (
-    <>
-      {" "}
+    <form className="sign-form"  onSubmit={signIn}>
+    
       <div className="button-cover">
-          <div className="google-logo-cover">
-            <img
-              className="google-icon-svg"
-              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-            />
-          </div>
-          <button
-            className="google-button"
-            onClick={signInWithGoogle}
-          >
-            {`${enter} with Google`}
-          </button>  
+        <div className="google-logo-cover">
+          <img
+            className="google-icon-svg"
+            src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+          />
         </div>
-      <p className="font-face-fira">or sign in with your email</p>
+        <button className="google-button" onClick={signInWithGoogle}>
+          {`${enter} with Google`}
+        </button>
+      </div>
+      <p className="font-face-fira">or with your email</p>
       <input
         type="email"
         name="email"
@@ -122,6 +119,6 @@ export const SignInInput = ({
         value={enter}
         onSubmit={signIn}
       />
-    </>
+    </form>
   );
 };

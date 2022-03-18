@@ -3,8 +3,8 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  margin: 37px auto;
-  width: 75%;
+  margin: 1em 2.5%;
+  width: 95%;
 }
 
 .color-box {
@@ -15,7 +15,7 @@
 .color-box:active {
   transform: scale(0.95);
 }
-.color-box:checked {
+.onFocus {
   box-sizing: content-box;
   border: solid white 3px;
 }

@@ -109,33 +109,31 @@ const Entrance = () => {
   return (
     <main className="sing-in-main">
       {!author && !reg && (
-        <>
+        <section className="form-section">
           <DevsBigLogo />
-          <form className="font-face-silk" onSubmit={signIn}>
-            <p>
-              welcome {""}
-              <span> dear author</span>
-            </p>
+          <p className="font-face-silk">
+            welcome {""}
+            <span> dear author</span>
+          </p>
 
-            <SignInInput
-              body={body}
-              setBody={setBody}
-              setDisplayName={setDisplayName}
-              signInWithGoogle={signInWithGoogle}
-              enter={enter}
-              signIn={signIn}
-            />
-          </form>
+          <SignInInput
+            body={body}
+            setBody={setBody}
+            setDisplayName={setDisplayName}
+            signInWithGoogle={signInWithGoogle}
+            enter={enter}
+            signIn={signIn}
+          />
           <p className="font-face-silk" onClick={registerHandler}>
             Or <span>Sign Up</span>
           </p>
-        </>
+        </section>
       )}
 
       {!author && reg && (
-        <>
+        <section className="form-section">
           <DevsBigLogo />
-          <form className="font-face-silk sign-in-form" onSubmit={signUp}>
+         
             <SignUpInput
               body={body}
               setBody={setBody}
@@ -149,8 +147,8 @@ const Entrance = () => {
             <p className="font-face-silk" onClick={registerHandler}>
               Or <span>Sign In</span>
             </p>
-          </form>
-        </>
+          
+        </section>
       )}
     </main>
   );

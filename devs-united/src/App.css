@@ -15,11 +15,13 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-color: rgb(46, 19, 44);
 }
 
 .App {
-  text-align: center;
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: rgb(46, 19, 44);
 }

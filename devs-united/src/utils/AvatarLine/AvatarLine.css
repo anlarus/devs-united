@@ -3,21 +3,22 @@
     flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
-    margin: 37px auto;
-    width: 75%;
+    margin: 1em 2.5%;
+    width: 95%;
     height: 150px;
   }
   
   .avatar-box {
     height: 45%;
-    width: 15%;
+    width: 14%;
+    margin: 0.5%;
   }
   
   .avatar-box:active {
     transform: scale(0.95);
   }
-  .avatar-box:checked {
-    box-sizing: content-box;
+  .onFocus {
+    /* box-sizing: content-box; */
     border: solid white 3px;
   }
   
@@ -27,7 +28,8 @@
   }
 
   .avatar-box img {
-      height: 90%;
+      max-height: 90%;
+      max-width: 90%;
   }
   
   .font-face-silk {

@@ -27,7 +27,7 @@ input.edit-input {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
+  padding: 5px 0;
 }
 
 progress[value] {
@@ -110,20 +110,19 @@ input[type="file"] {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 5px 15px;
+  padding: 5px 10px;
   margin: 0;
   width: 100%;
   color: white;
 }
 
-.post-box {
+/* .post-box {
   width: 90%;
   margin: 0 0 0 20px;
   flex-flow: column nowrap;
   align-items: justify;
   justify-content: space-between;
-  padding: 10px;
-}
+} */
 
 .post-first-line {
   display: flex;
